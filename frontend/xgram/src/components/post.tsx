@@ -1,14 +1,21 @@
-export default function Post() {
+import React from "react";
+import {PostData} from "../types/posttypes";
+
+interface PostProps {
+	post: PostData;
+}
+
+const Post: React.FC<PostProps> = ({post}) => {
 	return (
 		<main className="">
 			<div className="border max-w-screen-md bg-white mt-6 rounded-2xl p-4">
 				<div className="flex items-center justify-between">
 					<div className="gap-3.5 flex items-center">
-						<img src="https://images.unsplash.com/photo-1617077644557-64be144aa306?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80" className="object-cover bg-yellow-500 rounded-full w-10 h-10" alt="user" />
+						<img src={post.userPicturePath} className="object-cover bg-yellow-500 rounded-full w-10 h-10" alt="user" />
 						<div className="flex flex-col">
-							<b className="mb-2 capitalize">sofia müller</b>
+							<b className="mb-2 capitalize">{post.userRef}</b>
 							<time dateTime="06-08-21" className="text-gray-400 text-xs">
-								06 August at 09.15 PM
+								{post.location}
 							</time>
 						</div>
 					</div>
@@ -19,10 +26,9 @@ export default function Post() {
 						</svg>
 					</div>
 				</div>
-				<div className="whitespace-pre-wrap mt-7">Hello guys ?</div>
+				<div className="whitespace-pre-wrap mt-7">{post.description}</div>
 				<div className="mt-5 flex gap-2 justify-center border-b pb-4 flex-wrap">
-					<img src="https://images.unsplash.com/photo-1610147323479-a7fb11ffd5dd?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1534&q=80" className="bg-red-500 rounded-2xl w-1/3 object-cover h-96 flex-auto" alt="photo1" />
-					<img src="https://images.unsplash.com/photo-1614914135224-925593607248?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1534&q=80" className="bg-red-500 rounded-2xl w-1/3 object-cover h-96 flex-auto" alt="photo2" />
+					<img src={post.picturePath} className="bg-gray-100 rounded-2xl w-1/3 object-cover h-96 flex-auto" alt="post" />
 				</div>
 				<div className="h-16 border-b flex items-center justify-around">
 					<div className="flex items-center gap-3">
@@ -48,13 +54,13 @@ export default function Post() {
 								</g>
 							</g>
 						</svg>
-						<div className="text-sm">10 Comments</div>
+						<div className="text-sm">{post.commentsCount} Comments</div>
 					</div>
 					<div className="flex items-center gap-3">
 						<svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-red-500" viewBox="0 0 20 20" fill="currentColor">
 							<path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
 						</svg>
-						<div className="text-sm">5 Likes</div>
+						<div className="text-sm">{post.likesCount} Likes</div>
 					</div>
 					<div className="flex items-center gap-3">
 						<svg width="22px" height="22px" viewBox="0 0 22 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
@@ -110,12 +116,32 @@ export default function Post() {
 					</div>
 				</div>
 				<div className="flex items-center justify-between mt-4">
-					<img src="https://images.unsplash.com/photo-1595152452543-e5fc28ebc2b8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80" className="bg-yellow-500 rounded-full w-10 h-10 object-cover border" alt="user" />
+					<img src={post.userPicturePath} className="bg-yellow-500 rounded-full w-10 h-10 object-cover border" alt="user" />
 					<div className="flex items-center justify-between bg-gray-50 h-11 w-11/12 border rounded-2xl overflow-hidden px-4">
 						<input type="text" className="h-full w-full bg-gray-50 outline-none" placeholder="Write your comment..." name="comment" />
+					</div>
+				</div>
+
+				<div className="flex items-center justify-around mt-4">
+					<div className="w-8 h-8">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+							<path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+						</svg>
+					</div>
+					<div className="w-8 h-8">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+							<path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
+						</svg>
+					</div>
+					<div className="w-8 h-8">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+							<path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+						</svg>
 					</div>
 				</div>
 			</div>
 		</main>
 	);
-}
+};
+
+export default Post;
