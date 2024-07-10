@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import Sidebar from "./sidebar";
 
 interface User {
 	id: number;
@@ -38,34 +39,10 @@ export default function Component() {
 
 	return (
 		<div className="flex h-screen w-screen">
-			<aside className="w-1/4 bg-white border-r">
-				<div className="flex items-center justify-between p-4 bg-gradient-to-r from-blue-500 text-white">
-					<SearchIcon className="w-6 h-6" />
-				</div>
-				<div className="p-4">
-					<div className="flex items-center p-4 mb-4 bg-gray-100 rounded-lg">
-						<SearchIcon className="w-8 h-8 text-blue-500" />
-						<div className="ml-4">
-							<h2 className="font-bold">Discover New Posts</h2>
-							<p className="text-sm text-gray-600">Start swiping to find interesting things!</p>
-						</div>
-					</div>
-					<h3 className="mb-2 font-bold text-blue-500">Messages</h3>
-					<div className="space-y-4">
-						{userData.map(user => (
-							<div key={user.id} className="flex items-center">
-								<div className="ml-4">
-									<div className="flex items-center">
-										<span className="font-bold">{user.firstname}</span>
-										{user.impressions > 0 && <UserIcon className="w-4 h-4 ml-2 text-blue-500" />}
-									</div>
-									<p className="text-sm text-gray-600">{user.lastname}</p>
-								</div>
-							</div>
-						))}
-					</div>
-				</div>
+			<aside className="w-1/6 bg-white border-r">
+				<Sidebar />
 			</aside>
+
 			<main className="flex-1 flex items-center justify-center bg-gray-100">
 				<div className="w-96 bg-white rounded-lg shadow-lg">
 					<div className="relative">
@@ -86,9 +63,9 @@ export default function Component() {
 						</div>
 						<p className="mt-4 text-sm text-gray-600">Impressions: {firstUser.impressions}</p>
 						<div className="flex items-center justify-around mt-4">
-							<XIcon className="w-12 h-12 text-red-500" />
-							<StarIcon className="w-12 h-12 text-blue-500" />
-							<HeartIcon className="w-12 h-12 text-green-500" />
+							<XIcon className="w-10 h-10 text-red-500" />
+							<StarIcon className="w-8 h-8 text-blue-500" />
+							<HeartIcon className="w-8 h-8 text-green-500" />
 						</div>
 					</div>
 				</div>
@@ -120,15 +97,6 @@ function ListIcon(props: IconProps) {
 	);
 }
 
-function SearchIcon(props: IconProps) {
-	return (
-		<svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-			<circle cx="11" cy="11" r="8" />
-			<path d="m21 21-4.3-4.3" />
-		</svg>
-	);
-}
-
 function ShareIcon(props: IconProps) {
 	return (
 		<svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -143,15 +111,6 @@ function StarIcon(props: IconProps) {
 	return (
 		<svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
 			<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-		</svg>
-	);
-}
-
-function UserIcon(props: IconProps) {
-	return (
-		<svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-			<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-			<circle cx="12" cy="7" r="4" />
 		</svg>
 	);
 }
