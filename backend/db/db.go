@@ -32,13 +32,13 @@ func InitDB() {
 
 type User struct {
 	ID            int    `db:"id" json:"id"`
+	Username      string `db:"username" json:"username"`
 	FirstName     string `db:"firstname" json:"firstname"`
 	LastName      string `db:"lastname" json:"lastname"`
 	Email         string `db:"email" json:"email"`
 	Password      string `db:"password" json:"password"`
 	PicturePath   string `db:"picturepath" json:"picturepath"`
 	Location      string `db:"location" json:"location"`
-	Occupation    string `db:"occupation" json:"occupation"`
 	ViewedProfile int    `db:"viewedprofile" json:"viewedprofile"`
 	Impressions   int    `db:"impressions" json:"impressions"`
 }
@@ -46,12 +46,12 @@ type User struct {
 type Post struct {
 	ID              int    `db:"id" json:"id"`
 	UserRef         int    `db:"userref" json:"userRef"`
-	FirstName       string `db:"firstname" json:"firstName"`
-	LastName        string `db:"lastname" json:"lastName"`
 	Location        string `db:"location" json:"location"`
 	Description     string `db:"description" json:"description"`
 	UserPicturePath string `db:"userpicturepath" json:"userPicturePath"`
 	PicturePath     string `db:"picturepath" json:"picturePath"`
+	LikesCount      int    `db:"likescount" json:"likesCount"`
+	CommentsCount   int    `db:"commentscount" json:"commentsCount"`
 }
 
 type Friend struct {
@@ -61,9 +61,10 @@ type Friend struct {
 }
 
 type Like struct {
-	ID     int `db:"id" json:"id"`
-	PostID int `db:"postid" json:"postId"`
-	UserID int `db:"userid" json:"userId"`
+	ID        int       `db:"id" json:"id"`
+	PostID    int       `db:"postid" json:"postId"`
+	UserID    int       `db:"userid" json:"userId"`
+	CreatedAt time.Time `db:"createdat" json:"createdAt"`
 }
 
 type Comment struct {

@@ -9,7 +9,7 @@ import (
 
 func GetUsers(c *gin.Context) {
 	var users []db.User
-	err := db.DB.Select(&users, `SELECT id, firstname, lastname, email, password, picturepath, location, occupation, viewedprofile, impressions FROM "User"`)
+	err := db.DB.Select(&users, `SELECT id, username, firstname, lastname, email, password, picturepath, location, viewedprofile, impressions FROM users`)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
