@@ -52,6 +52,7 @@ type Post struct {
 	PicturePath     string `db:"picturepath" json:"picturePath"`
 	LikesCount      int    `db:"likescount" json:"likesCount"`
 	CommentsCount   int    `db:"commentscount" json:"commentsCount"`
+	Username        string `json:"username"`
 }
 
 type Friend struct {

@@ -13,7 +13,7 @@ const Post: React.FC<PostProps> = ({post}) => {
 					<div className="gap-3.5 flex items-center">
 						<img src={post.userPicturePath} className="object-cover bg-yellow-500 rounded-full w-10 h-10" alt="user" />
 						<div className="flex flex-col">
-							<b className="mb-2 capitalize">{post.userRef}</b>
+							<b className="mb-2 capitalize">{post.username}</b>
 							<time dateTime="06-08-21" className="text-gray-400 text-xs">
 								{post.location}
 							</time>

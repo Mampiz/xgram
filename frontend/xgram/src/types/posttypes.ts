@@ -4,7 +4,8 @@ export interface PostData {
 	location: string;
 	description: string;
 	userPicturePath: string;
-	picturePath: string;
+	picturePath?: string;
 	likesCount: number;
 	commentsCount: number;
+	username: string;
 }
