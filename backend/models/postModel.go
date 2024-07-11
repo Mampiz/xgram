@@ -18,13 +18,16 @@ type Post struct {
 
 func GetAllPosts() ([]Post, error) {
 	var posts []Post
-	err := db.DB.Select(&posts, `SELECT id, userref, location, description, userpicturepath, picturepath, likescount, commentscount FROM posts`)
+	query := `
+		SELECT p.id, p.userref, u.username, p.location, p.description, u.picturepath AS userpicturepath, p.picturepath, p.likescount, p.commentscount
+		FROM posts p
+		JOIN users u ON p.userref = u.id`
+	err := db.DB.Select(&posts, query)
 	if err != nil {
 		return nil, err
 	}
 	return posts, nil
 }
-
 
 func CreatePost(post Post) (Post, error) {
 	query := `INSERT INTO posts (userref, location, description, userpicturepath, picturepath, likescount, commentscount) 

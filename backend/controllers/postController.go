@@ -13,16 +13,7 @@ func GetPosts(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
-
-	for i, post := range posts {
-		username, err := models.GetUsernameByID(post.UserRef)
-		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-			return
-		}
-		posts[i].Username = username
-	}
-
+	
 	c.JSON(http.StatusOK, posts)
 }
 
