@@ -29,6 +29,7 @@ func main() {
 	routes.UserRoutes(router)
 	routes.TestRoutes(router)
 	routes.PostRoutes(router)
+	routes.LikeRoutes(router)
 
 	log.Fatal(router.Run(":8080"))
 }

@@ -33,7 +33,7 @@ func CreatePost(post Post) (Post, error) {
 	query := `INSERT INTO posts (userref, location, description, userpicturepath, picturepath, likescount, commentscount) 
 	          VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id`
 
-	// Ejecutar la consulta y capturar el ID generado
+	
 	err := db.DB.QueryRow(query, post.UserRef, post.Location, post.Description, post.UserPicturePath, post.PicturePath, post.LikesCount, post.CommentsCount).Scan(&post.ID)
 	if err != nil {
 		return Post{}, err

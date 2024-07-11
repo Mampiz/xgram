@@ -9,3 +9,12 @@ export interface PostData {
 	commentscount: number;
 	username: string;
 }
+
+
+export interface LikeData {
+	id: number;
+	postId: number;
+	userId: number;
+	createdAt: Date;
+  }
+  

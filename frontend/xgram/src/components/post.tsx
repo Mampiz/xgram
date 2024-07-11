@@ -1,5 +1,5 @@
-import React from "react";
-import {PostData} from "../types/posttypes";
+import React, {useEffect, useState} from "react";
+import {LikeData, PostData} from "../types/posttypes";
 
 interface PostProps {
 	post: PostData;
@@ -7,7 +7,27 @@ interface PostProps {
 }
 
 const Post: React.FC<PostProps> = ({post, onNextPost}) => {
-	console.log(post);
+	const [likes, setLikes] = useState<LikeData[]>([]);
+
+	useEffect(() => {
+		const fetchLikeData = async () => {
+			try {
+				const response = await fetch(`http://localhost:8080/posts/${post.id}/likes`);
+				if (response.ok) {
+					const data: LikeData[] = await response.json();
+					setLikes(data || []);
+				} else {
+					console.error("Error fetching likes data:", response.statusText);
+					setLikes([]); 
+				}
+			} catch (error) {
+				console.error("Error fetching likes data:", error);
+				setLikes([]); 
+			}
+		};
+
+		fetchLikeData();
+	}, [post.id]);
 
 	return (
 		<main className="">
@@ -63,9 +83,8 @@ const Post: React.FC<PostProps> = ({post, onNextPost}) => {
 						<svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-red-500" viewBox="0 0 20 20" fill="currentColor">
 							<path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
 						</svg>
-						<div className="text-sm">{post.likescount} Likes</div>
+						<div className="text-sm">{likes.length} Likes</div>
 					</div>
-
 					<div className="flex items-center gap-3">
 						<svg width="17px" height="22px" viewBox="0 0 17 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
 							<g id="?-Social-Media" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
