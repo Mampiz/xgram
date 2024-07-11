@@ -3,8 +3,8 @@ export interface PostData {
 	userRef: number;
 	location: string;
 	description: string;
-	userPicturePath: string;
-	picturePath?: string;
+	userpicturepath: string;
+	picturepath?: string;
 	likesCount: number;
 	commentsCount: number;
 	username: string;

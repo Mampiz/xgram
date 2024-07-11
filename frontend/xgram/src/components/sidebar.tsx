@@ -25,7 +25,7 @@ export default function Sidebar() {
 								</svg>
 							</div>
 							<a href="" className="flex-grow">
-								Messegues
+								Messages
 							</a>
 						</div>
 						<div role="button" className="flex items-center w-full p-3 rounded-lg text-start leading-tight transition-all hover:bg-slate-200 hover:bg-opacity-80 focus:bg-blue-50 focus:bg-opacity-80 active:bg-gray-50 active:bg-opacity-80 hover:text-[#3B82F6] focus:text-[#3B82F6] active:text-[#3B82F6] outline-none">
@@ -36,7 +36,7 @@ export default function Sidebar() {
 								</svg>
 							</div>
 							<a href="" className="flex-grow">
-								Notificacions
+								Notifications
 							</a>
 						</div>
 						<div role="button" className="flex items-center w-full p-3 rounded-lg text-start leading-tight transition-all hover:bg-slate-200 hover:bg-opacity-80 focus:bg-blue-50 focus:bg-opacity-80 active:bg-gray-50 active:bg-opacity-80 hover:text-[#3B82F6] focus:text-[#3B82F6] active:text-[#3B82F6] outline-none">
