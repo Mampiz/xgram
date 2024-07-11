@@ -8,6 +8,7 @@ import (
 
 func UserRoutes(router *gin.Engine) {
 	router.GET("/users", controllers.GetUsers)
+	router.POST("/register", controllers.RegisterUser)
 }
 
 func TestRoutes(router *gin.Engine) {
