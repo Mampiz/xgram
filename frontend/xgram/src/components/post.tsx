@@ -57,39 +57,15 @@ const Post: React.FC<PostProps> = ({post, onNextPost}) => {
 								</g>
 							</g>
 						</svg>
-						<div className="text-sm">{post.commentsCount} Comments</div>
+						<div className="text-sm">{post.commentscount} Comments</div>
 					</div>
 					<div className="flex items-center gap-3">
 						<svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-red-500" viewBox="0 0 20 20" fill="currentColor">
 							<path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
 						</svg>
-						<div className="text-sm">{post.likesCount} Likes</div>
+						<div className="text-sm">{post.likescount} Likes</div>
 					</div>
-					<div className="flex items-center gap-3">
-						<svg width="22px" height="22px" viewBox="0 0 22 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
-							<g id="?-Social-Media" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-								<g id="Square_Timeline" transform="translate(-636.000000, -745.000000)">
-									<g id="Post-1" transform="translate(280.000000, 227.000000)">
-										<g id="Post-Action" transform="translate(0.000000, 495.000000)">
-											<g transform="translate(30.000000, 21.000000)" id="Share">
-												<g transform="translate(325.000000, 1.000000)">
-													<g id="ic_Share-Component/icon/ic_Share">
-														<g id="Share">
-															<circle id="Oval" cx="12" cy="12" r="12"></circle>
-															<g id="Group-24-Copy" transform="translate(12.000000, 12.000000) scale(-1, 1) translate(-12.000000, -12.000000) translate(1.000000, 1.000000)" fill="#92929D">
-																<path d="M4,0 C6.209139,0 8,1.790861 8,4 C8,4.1291298 7.99388117,4.25683047 7.98191762,4.38282788 L15.371607,7.98470389 C16.0745405,7.37145444 16.9938914,7 18,7 C20.209139,7 22,8.790861 22,11 C22,13.209139 20.209139,15 18,15 C16.9572434,15 16.0076801,14.6009919 15.2956607,13.9473263 L7.98384745,17.6380767 C7.99453877,17.7572882 8,17.8780063 8,18 C8,20.209139 6.209139,22 4,22 C1.790861,22 0,20.209139 0,18 C0,15.790861 1.790861,14 4,14 C5.37147453,14 6.58173814,14.690226 7.30236849,15.7422555 L14.2017356,12.2577203 C14.0708451,11.8622268 14,11.4393868 14,11 C14,10.5276126 14.0818865,10.0743509 14.2322392,9.65363512 L7.29274641,6.27172794 C6.57099412,7.31588608 5.36538874,8 4,8 C1.790861,8 0,6.209139 0,4 C0,1.790861 1.790861,0 4,0 Z M4,16 C2.8954305,16 2,16.8954305 2,18 C2,19.1045695 2.8954305,20 4,20 C5.1045695,20 6,19.1045695 6,18 C6,16.8954305 5.1045695,16 4,16 Z M18,9 C16.8954305,9 16,9.8954305 16,11 C16,12.1045695 16.8954305,13 18,13 C19.1045695,13 20,12.1045695 20,11 C20,9.8954305 19.1045695,9 18,9 Z M4,2 C2.8954305,2 2,2.8954305 2,4 C2,5.1045695 2.8954305,6 4,6 C5.1045695,6 6,5.1045695 6,4 C6,2.8954305 5.1045695,2 4,2 Z" />
-															</g>
-														</g>
-													</g>
-												</g>
-											</g>
-										</g>
-									</g>
-								</g>
-							</g>
-						</svg>
-						<div className="text-sm">{post.likesCount} Likes</div>
-					</div>
+
 					<div className="flex items-center gap-3">
 						<svg width="17px" height="22px" viewBox="0 0 17 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
 							<g id="?-Social-Media" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
@@ -127,11 +103,6 @@ const Post: React.FC<PostProps> = ({post, onNextPost}) => {
 					<div className="w-8 h-8" onClick={onNextPost}>
 						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
 							<path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-						</svg>
-					</div>
-					<div className="w-8 h-8" onClick={onNextPost}>
-						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-							<path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
 						</svg>
 					</div>
 					<div className="w-8 h-8" onClick={onNextPost}>

@@ -1,11 +1,11 @@
 export interface PostData {
 	id: number;
-	userRef: number;
+	userref: number;
 	location: string;
 	description: string;
 	userpicturepath: string;
 	picturepath?: string;
-	likesCount: number;
-	commentsCount: number;
+	likescount: number;
+	commentscount: number;
 	username: string;
 }
