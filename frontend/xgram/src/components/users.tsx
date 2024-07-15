@@ -1,12 +1,18 @@
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {PostData} from "../types/posttypes";
+import {User} from "../types/usetypes";
 import Post from "./post";
 import Sidebar from "./sidebar";
 
-const ParentComponent: React.FC = () => {
+interface ParentComponentProps {
+	user: User | null;
+}
+
+const ParentComponent = ({user}: ParentComponentProps) => {
 	const [posts, setPosts] = useState<PostData[]>([]);
 	const [currentIndex, setCurrentIndex] = useState(0);
 
+	console.log(user);
 	useEffect(() => {
 		const fetchPostData = async () => {
 			try {
@@ -31,7 +37,7 @@ const ParentComponent: React.FC = () => {
 				<Sidebar />
 			</aside>
 			<main className="flex-1 flex items-center justify-center bg-gray-100">
-				<div className="App">{posts.length > 0 && <Post post={posts[currentIndex]} onNextPost={handleNextPost} />}</div>
+				<div className="App">{posts.length > 0 && <Post post={posts[currentIndex]} onNextPost={handleNextPost} userid={user ? user.id : null} />}</div>
 			</main>
 		</div>
 	);

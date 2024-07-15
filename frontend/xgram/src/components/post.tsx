@@ -5,11 +5,11 @@ import {LikeData, PostData} from "../types/posttypes";
 interface PostProps {
 	post: PostData;
 	onNextPost: () => void;
+	userid: number | null;
 }
 
-const Post: React.FC<PostProps> = ({post, onNextPost}) => {
+const Post: React.FC<PostProps> = ({post, onNextPost, userid}) => {
 	const [likes, setLikes] = useState<LikeData[]>([]);
-
 	useEffect(() => {
 		const fetchLikeData = async () => {
 			try {
@@ -19,7 +19,6 @@ const Post: React.FC<PostProps> = ({post, onNextPost}) => {
 				if (response.ok) {
 					const data: LikeData[] = await response.json();
 					setLikes(data || []);
-					toast.success("Post cargados correctamente");
 				} else {
 					console.error("Error fetching likes data:", response.statusText);
 					toast.error("Error cargando los posts");
@@ -41,7 +40,7 @@ const Post: React.FC<PostProps> = ({post, onNextPost}) => {
 				headers: {
 					"Content-Type": "application/json"
 				},
-				body: JSON.stringify({postId: post.id, userId: 1})
+				body: JSON.stringify({postId: post.id, userId: userid})
 			});
 			if (response.ok) {
 				const newLike: LikeData = await response.json();
@@ -151,11 +150,16 @@ const Post: React.FC<PostProps> = ({post, onNextPost}) => {
 							<path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
 						</svg>
 					</div>
-					<div className="w-8 h-8" onClick={onNextPost}>
+					<button
+						className="w-8 h-8"
+						onClick={() => {
+							onNextPost();
+							handleCreateLike();
+						}}>
 						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 hover:text-green-500">
 							<path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
 						</svg>
-					</div>
+					</button>
 				</div>
 			</div>
 		</main>

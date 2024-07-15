@@ -48,7 +48,6 @@ func RegisterUser(user User) error {
 		return errors.New("username or email already exists")
 	}
 
-	// Hash the password before saving
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
 	if err != nil {
 		return err
@@ -68,7 +67,6 @@ func AuthenticateUser(username, password string) (User, error) {
 		return User{}, err
 	}
 
-	// Check the password
 	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
 	if err != nil {
 		return User{}, errors.New("invalid username or password")
