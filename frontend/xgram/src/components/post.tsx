@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import {toast} from "react-toastify";
 import {LikeData, PostData} from "../types/posttypes";
 
 interface PostProps {
@@ -12,22 +13,48 @@ const Post: React.FC<PostProps> = ({post, onNextPost}) => {
 	useEffect(() => {
 		const fetchLikeData = async () => {
 			try {
-				const response = await fetch(`http://localhost:8080/posts/${post.id}/likes`);
+				const response = await fetch(`http://localhost:8080/posts/${post.id}/likes`, {
+					mode: "cors"
+				});
 				if (response.ok) {
 					const data: LikeData[] = await response.json();
 					setLikes(data || []);
+					toast.success("Post cargados correctamente");
 				} else {
 					console.error("Error fetching likes data:", response.statusText);
-					setLikes([]); 
+					toast.error("Error cargando los posts");
+					setLikes([]);
 				}
 			} catch (error) {
 				console.error("Error fetching likes data:", error);
-				setLikes([]); 
+				setLikes([]);
 			}
 		};
 
 		fetchLikeData();
 	}, [post.id]);
+
+	const handleCreateLike = async () => {
+		try {
+			const response = await fetch("http://localhost:8080/likes", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json"
+				},
+				body: JSON.stringify({postId: post.id, userId: 1})
+			});
+			if (response.ok) {
+				const newLike: LikeData = await response.json();
+				setLikes(prevLikes => [...prevLikes, newLike]);
+				toast.success("Like dado correctamente");
+			} else {
+				toast.error("Error dando el like");
+			}
+		} catch (error) {
+			console.error("Error creando el like:", error);
+			toast.error("Error creando el like");
+		}
+	};
 
 	return (
 		<main className="">
@@ -43,16 +70,16 @@ const Post: React.FC<PostProps> = ({post, onNextPost}) => {
 						</div>
 					</div>
 					<div className="bg-gray-100 rounded-full h-3.5 flex items-center justify-center">
-						<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="34px" fill="#92929D">
-							<path d="M0 0h24v24H0V0z" fill="none" />
-							<path d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
-						</svg>
+						<button
+							className="h-[28px] ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 
+						disabled:pointer-events-none disabled:opacity-50 bg-primary hover:bg-primary/90 inline-flex items-center justify-center px-6 py-2 border-0 rounded-full text-sm font-medium
+						 text-white bg-gradient-to-l from-blue-500 to-purple-600 shadow-lg hover:from-purple-500 hover:to-blue-600 mt-[-20px]">
+							Follow
+						</button>
 					</div>
 				</div>
 				<div className="whitespace-pre-wrap mt-7">{post.description}</div>
-				<div className="mt-5 flex gap-2 justify-center border-b pb-4 flex-wrap">
-					<img src={post.picturepath} className="bg-gray-100 rounded-2xl w-1/3 object-cover h-96 flex-auto" alt="post" />
-				</div>
+
 				<div className="h-16 border-b flex items-center justify-around">
 					<div className="flex items-center gap-3">
 						<svg width="20px" height="19px" viewBox="0 0 20 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
@@ -120,13 +147,13 @@ const Post: React.FC<PostProps> = ({post, onNextPost}) => {
 
 				<div className="flex items-center justify-around mt-4">
 					<div className="w-8 h-8" onClick={onNextPost}>
-						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-							<path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 hover:text-red-500">
+							<path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
 						</svg>
 					</div>
 					<div className="w-8 h-8" onClick={onNextPost}>
-						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-							<path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 hover:text-green-500">
+							<path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
 						</svg>
 					</div>
 				</div>
