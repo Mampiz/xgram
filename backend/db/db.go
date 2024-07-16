@@ -1,6 +1,7 @@
 package db
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"time"
@@ -18,17 +19,23 @@ func InitDB() {
 		log.Fatalf("Error loading .env file")
 	}
 
-	dbUser := os.Getenv("DB_USER")
-	dbPassword := os.Getenv("DB_PASSWORD")
-	dbName := os.Getenv("DB_NAME")
+	dbUser := os.Getenv("POSTGRES_USER")
+	dbPassword := os.Getenv("POSTGRES_PASSWORD")
+	dbName := os.Getenv("POSTGRES_DB")
 	dbSSLMode := os.Getenv("DB_SSLMODE")
+	dbHost := os.Getenv("DB_HOST")
+	dbPort := os.Getenv("DB_PORT") // Use this to set the port
 
-	connStr := "user=" + dbUser + " password=" + dbPassword + " dbname=" + dbName + " sslmode=" + dbSSLMode
+	// Construct connection string with host and port
+	connStr := fmt.Sprintf("user=%s password=%s dbname=%s sslmode=%s host=%s port=%s",
+		dbUser, dbPassword, dbName, dbSSLMode, dbHost, dbPort)
+
 	DB, err = sqlx.Connect("postgres", connStr)
 	if err != nil {
 		log.Fatalln(err)
 	}
 }
+
 
 type User struct {
 	ID            int    `db:"id" json:"id"`

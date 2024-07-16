@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  db:
+    ports:
+      - 54321:5432
+    env_file:
+      - ".env"
+    volumes:
+      - ./db.sql:/docker-entrypoint-initdb.d/data1.sql
+    # - ./mock-data.sql:/docker-entrypoint-initdb.d/data2.sql
+    container_name: db
+    image: postgres:latest
+    restart: always
+    attach: false
