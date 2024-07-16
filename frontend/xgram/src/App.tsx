@@ -1,14 +1,38 @@
-import {useState} from "react";
+// src/App.tsx
+import {useEffect, useState} from "react";
+import {Route, BrowserRouter as Router, Routes} from "react-router-dom";
+import {ToastContainer} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import UsersShow from "./components/users";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
+import { User } from "./types/usetypes";
 
 function App() {
-	useState;
+	const [user, setUser] = useState<User | null>(null);
+
+	const handleLogin = (user: User) => {
+		setUser(user);
+		localStorage.setItem("user", JSON.stringify(user));
+	};
+
+	useEffect(() => {
+		const storedUser = localStorage.getItem("user");
+		if (storedUser) {
+			setUser(JSON.parse(storedUser));
+		}
+	}, []);
 
 	return (
-		<>
-			<UsersShow />
-		</>
+		<Router>
+			<Routes>
+				<Route path="/" element={<UsersShow user={user} />} />
+				<Route path="/register" element={<RegisterPage />} />
+				<Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
+			</Routes>
+			<ToastContainer />
+		</Router>
 	);
 }
 
