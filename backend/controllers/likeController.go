@@ -31,6 +31,16 @@ func CreateLike(c *gin.Context) {
 		return
 	}
 
+	err := models.Likeexist(like)
+	if err != nil {
+		if err.Error() == "like already given" {
+			c.JSON(http.StatusConflict, gin.H{"error": err.Error()})
+			return
+		}
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
 	newLike, err := models.CreateLike(like)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})

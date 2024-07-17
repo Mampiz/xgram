@@ -1,6 +1,7 @@
 package models
 
 import (
+	"errors"
 	"example/yx/db"
 	"time"
 )
@@ -30,4 +31,18 @@ func GetLikesByPostID(postID int) ([]Like, error) {
 		return nil, err
 	}
 	return likes, nil
+}
+
+func Likeexist(like Like) error {
+	var exists bool
+	err := db.DB.Get(&exists, `SELECT exists(SELECT 1 FROM likes WHERE userid=$1 AND postid=$2)`, like.UserID, like.PostID)
+	if err != nil {
+		return err
+	}
+
+	if exists {
+		return errors.New("like already given")
+	}
+
+	return nil
 }

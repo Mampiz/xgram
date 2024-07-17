@@ -47,7 +47,7 @@ const Post: React.FC<PostProps> = ({post, onNextPost, userid}) => {
 				setLikes(prevLikes => [...prevLikes, newLike]);
 				toast.success("Like dado correctamente");
 			} else {
-				toast.error("Error dando el like");
+				console.log("like ya dado");
 			}
 		} catch (error) {
 			console.error("Error creando el like:", error);

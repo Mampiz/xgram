@@ -47,4 +47,10 @@ INSERT INTO users (username, firstName, lastName, email, password, picturePath, 
 VALUES ('Mampiz', 'Josep', 'Mampel', 'sexo@example.com', 'password123', 'path/to/picture.jpg', 'Andorra', 0, 0);
 
 INSERT INTO posts (userRef, location, description, userPicturePath, picturePath)
-VALUES (1, 'Epsevg', 'Me corro o dios!', 'path/to/user/picture.jpg', 'path/to/post/picture.jpg');
+VALUES (1, 'Epsevg', 'Me corro o dios!', 'https://cloudfront-eu-central-1.images.arcpublishing.com/prisaradiolos40/YINZZYSQQBPPTA7VSNNQ7W6OA4.jpg
+', 'path/to/post/picture.jpg');
+
+
+INSERT INTO posts (userRef, location, description, userPicturePath, picturePath)
+VALUES (1, 'Yugoslavia', 'Soy messi!', 'https://cloudfront-eu-central-1.images.arcpublishing.com/prisaradiolos40/YINZZYSQQBPPTA7VSNNQ7W6OA4.jpg
+', 'path/to/post/picture.jpg');
