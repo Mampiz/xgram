@@ -63,3 +63,29 @@ func LoginUser(c *gin.Context) {
 		"user":    user,
 	})
 }
+
+func AddFriend(c *gin.Context) {
+	var friend models.Friend
+	if err := c.ShouldBindJSON(&friend); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	err := models.FriendExist(friend)
+	if err != nil {
+		if err.Error() == "already friends" {
+			c.JSON(http.StatusConflict, gin.H{"error": err.Error()})
+			return
+		}
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	err = models.AddFriend(friend.UserID, friend.FriendID)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusCreated, gin.H{"message": "friend created correctly"})
+}

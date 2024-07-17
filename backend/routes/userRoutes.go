@@ -10,6 +10,7 @@ func UserRoutes(router *gin.Engine) {
 	router.GET("/users", controllers.GetUsers)
 	router.POST("/register", controllers.RegisterUser)
 	router.POST("/login", controllers.LoginUser)
+	router.POST("/friend", controllers.AddFriend)
 }
 
 func TestRoutes(router *gin.Engine) {
