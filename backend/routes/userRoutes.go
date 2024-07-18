@@ -11,6 +11,7 @@ func UserRoutes(router *gin.Engine) {
 	router.POST("/register", controllers.RegisterUser)
 	router.POST("/login", controllers.LoginUser)
 	router.POST("/friend", controllers.AddFriend)
+	router.POST("/upload", controllers.UploadImage)
 }
 
 func TestRoutes(router *gin.Engine) {
