@@ -2,7 +2,9 @@ package controllers
 
 import (
 	"example/yx/models"
+	"example/yx/services"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -88,4 +90,44 @@ func AddFriend(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusCreated, gin.H{"message": "friend created correctly"})
+}
+
+func UploadImage(c *gin.Context) {
+	file, fileHeader, err := c.Request.FormFile("file")
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid file"})
+		return
+	}
+	defer file.Close()
+
+	s3Uploader, err := services.NewS3Uploader()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Could not create S3 uploader"})
+		return
+	}
+
+	fileName, err := s3Uploader.UploadFile(file, fileHeader)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	imageURL := "https://" + s3Uploader.BucketName + ".s3.amazonaws.com/" + fileName
+
+	// Suponiendo que tienes el user_id en el contexto como string, convertir a int
+	userIDStr := c.PostForm("user_id")
+	userID, err := strconv.Atoi(userIDStr)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid user ID"})
+		return
+	}
+
+	// Guarda la URL de la imagen en la base de datos
+	err = models.SaveProfileImageURL(userID, imageURL)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Could not save image URL"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"url": imageURL})
 }

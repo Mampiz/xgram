@@ -3,6 +3,7 @@ package models
 import (
 	"errors"
 	"example/yx/db"
+
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -17,6 +18,7 @@ type User struct {
 	Location      string `db:"location" json:"location"`
 	ViewedProfile int    `db:"viewedprofile" json:"viewedprofile"`
 	Impressions   int    `db:"impressions" json:"impressions"`
+	ImageURL      string `db:"image_url" json:"imageurl"`
 }
 
 type Friend struct {
@@ -60,9 +62,9 @@ func RegisterUser(user User) error {
 	}
 	user.Password = string(hashedPassword)
 
-	_, err = db.DB.Exec(`INSERT INTO users (username, firstname, lastname, email, password, picturepath, location, viewedprofile, impressions)
+	_, err = db.DB.Exec(`INSERT INTO users (username, firstname, lastname, email, password, picturepath, location, viewedprofile, impressions, image_url)
 		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
-		user.Username, user.FirstName, user.LastName, user.Email, user.Password, user.PicturePath, user.Location, user.ViewedProfile, user.Impressions)
+		user.Username, user.FirstName, user.LastName, user.Email, user.Password, user.PicturePath, user.Location, user.ViewedProfile, user.Impressions, user.ImageURL)
 	return err
 }
 
@@ -103,4 +105,10 @@ func FriendExist(friend Friend) error {
 	}
 
 	return nil
+}
+
+func SaveProfileImageURL(userID int, imageURL string) error {
+	query := `UPDATE users SET image_url = $1 WHERE id = $2`
+	_, err := db.DB.Exec(query, imageURL, userID)
+	return err
 }

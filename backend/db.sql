@@ -8,7 +8,8 @@ CREATE TABLE users (
     picturePath VARCHAR(255),
     location VARCHAR(255),
     viewedProfile INT,
-    impressions INT
+    impressions INT,
+	image_url VARCHAR(255)
 );
 
 CREATE TABLE posts (
