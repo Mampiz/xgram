@@ -3,14 +3,16 @@ package controllers
 import (
 	"example/yx/models"
 	"net/http"
-	"strconv"
 
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 )
 
 func GetLikes(c *gin.Context) {
-	postID, err := strconv.Atoi(c.Param("postid"))
-	if err != nil {
+	postID := c.Param("postid")
+
+	// Validar que postID sea un UUID
+	if _, err := uuid.Parse(postID); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid post ID"})
 		return
 	}
@@ -31,7 +33,17 @@ func CreateLike(c *gin.Context) {
 		return
 	}
 
-	err := models.Likeexist(like)
+	// Validar que userID y postID sean UUID
+	if _, err := uuid.Parse(like.UserID); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid user ID"})
+		return
+	}
+	if _, err := uuid.Parse(like.PostID); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid post ID"})
+		return
+	}
+
+	err := models.LikeExists(like)
 	if err != nil {
 		if err.Error() == "like already given" {
 			c.JSON(http.StatusConflict, gin.H{"error": err.Error()})

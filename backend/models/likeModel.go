@@ -7,9 +7,9 @@ import (
 )
 
 type Like struct {
-	ID        int       `db:"id" json:"id"`
-	PostID    int       `db:"postid" json:"postId"`
-	UserID    int       `db:"userid" json:"userId"`
+	ID        string    `db:"id" json:"id"`
+	PostID    string    `db:"postid" json:"postId"`
+	UserID    string    `db:"userid" json:"userId"`
 	CreatedAt time.Time `db:"createdat" json:"createdAt"`
 }
 
@@ -23,9 +23,9 @@ func CreateLike(like Like) (Like, error) {
 	return like, nil
 }
 
-func GetLikesByPostID(postID int) ([]Like, error) {
+func GetLikesByPostID(postID string) ([]Like, error) {
 	var likes []Like
-	query := `SELECT id, postid, userid FROM likes WHERE postid = $1`
+	query := `SELECT id, postid, userid, createdat FROM likes WHERE postid = $1`
 	err := db.DB.Select(&likes, query, postID)
 	if err != nil {
 		return nil, err
@@ -33,9 +33,10 @@ func GetLikesByPostID(postID int) ([]Like, error) {
 	return likes, nil
 }
 
-func Likeexist(like Like) error {
+func LikeExists(like Like) error {
 	var exists bool
-	err := db.DB.Get(&exists, `SELECT exists(SELECT 1 FROM likes WHERE userid=$1 AND postid=$2)`, like.UserID, like.PostID)
+	query := `SELECT exists(SELECT 1 FROM likes WHERE userid=$1 AND postid=$2)`
+	err := db.DB.Get(&exists, query, like.UserID, like.PostID)
 	if err != nil {
 		return err
 	}
