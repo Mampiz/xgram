@@ -3,12 +3,13 @@ package models
 import (
 	"errors"
 	"example/yx/db"
+	"fmt"
 
 	"golang.org/x/crypto/bcrypt"
 )
 
 type User struct {
-	ID            int    `db:"id" json:"id"`
+	ID            string `db:"id" json:"id"`
 	Username      string `db:"username" json:"username"`
 	FirstName     string `db:"firstname" json:"firstname"`
 	LastName      string `db:"lastname" json:"lastname"`
@@ -63,20 +64,26 @@ func RegisterUser(user User) error {
 	user.Password = string(hashedPassword)
 
 	_, err = db.DB.Exec(`INSERT INTO users (username, firstname, lastname, email, password, picturepath, location, viewedprofile, impressions, image_url)
-		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
+		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
 		user.Username, user.FirstName, user.LastName, user.Email, user.Password, user.PicturePath, user.Location, user.ViewedProfile, user.Impressions, user.ImageURL)
 	return err
 }
 
 func AuthenticateUser(username, password string) (User, error) {
 	var user User
-	err := db.DB.Get(&user, `SELECT id, username, firstname, lastname, email, password, picturepath, location, viewedprofile, impressions FROM users WHERE username=$1`, username)
+	query := `SELECT id, username, firstname, lastname, email, password, picturepath, location, viewedprofile, impressions, image_url FROM users WHERE username=$1`
+	err := db.DB.Get(&user, query, username)
 	if err != nil {
-		return User{}, err
+		// Log the actual error
+		fmt.Printf("Error fetching user: %v\n", err)
+		return User{}, errors.New("invalid username or password")
 	}
 
+	// Compare the hashed password with the provided password
 	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
 	if err != nil {
+		// Log the actual error
+		fmt.Printf("Password mismatch: %v\n", err)
 		return User{}, errors.New("invalid username or password")
 	}
 

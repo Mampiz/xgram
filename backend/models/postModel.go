@@ -7,7 +7,7 @@ import (
 
 type Post struct {
 	ID              int    `db:"id" json:"id"`
-	UserRef         int    `db:"userref" json:"userref"`
+	UserRef         string `db:"userref" json:"userref"`
 	Location        string `db:"location" json:"location"`
 	Description     string `db:"description" json:"description"`
 	UserPicturePath string `db:"userpicturepath" json:"userpicturepath"`
@@ -26,6 +26,9 @@ func GetAllPosts() ([]Post, error) {
 	err := db.DB.Select(&posts, query)
 	if err != nil {
 		return nil, err
+	}
+	if posts == nil {
+		posts = []Post{}
 	}
 	return posts, nil
 }
