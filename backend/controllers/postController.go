@@ -3,7 +3,6 @@ package controllers
 import (
 	"example/yx/models"
 	"net/http"
-	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -34,13 +33,8 @@ func CreatePost(c *gin.Context) {
 	c.JSON(http.StatusCreated, newPost)
 }
 
-
 func GetPostByIdd(c *gin.Context) {
-	friendidpost, err := strconv.Atoi(c.Param("id"))
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid friend ID"})
-		return
-	}
+	friendidpost := c.Param("id") // No need to convert to int since it's a UUID
 
 	posts, err := models.GetPostsByUserID(friendidpost)
 	if err != nil {

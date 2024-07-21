@@ -6,7 +6,7 @@ import (
 )
 
 type Post struct {
-	ID              int    `db:"id" json:"id"`
+	ID              string `db:"id" json:"id"` // Changed from int to string
 	UserRef         string `db:"userref" json:"userref"`
 	Location        string `db:"location" json:"location"`
 	Description     string `db:"description" json:"description"`
@@ -45,7 +45,7 @@ func CreatePost(post Post) (Post, error) {
 	return post, nil
 }
 
-func GetPostByID(id int) (Post, error) {
+func GetPostByID(id string) (Post, error) { // Changed parameter type from int to string
 	var post Post
 	query := `
 		SELECT p.id, p.userref, u.username, p.location, p.description, u.picturepath AS userpicturepath, p.picturepath, p.likescount, p.commentscount
@@ -59,7 +59,7 @@ func GetPostByID(id int) (Post, error) {
 	return post, nil
 }
 
-func GetPostsByUserID(userID int) ([]Post, error) {
+func GetPostsByUserID(userID string) ([]Post, error) { // Changed parameter type from int to string
 	var posts []Post
 	query := `
 		SELECT p.id, p.userref, u.username, p.location, p.description, u.picturepath AS userpicturepath, p.picturepath, p.likescount, p.commentscount
