@@ -60,7 +60,7 @@ const Post: React.FC<PostProps> = ({post, onNextPost, userid}) => {
 			<div className="border lg:min-w-[700px] lg:max-w-[700px] bg-white rounded-2xl p-4">
 				<div className="flex items-center justify-between">
 					<div className="gap-3.5 flex items-center">
-						<img src={post.userpicturepath} className="object-cover bg-yellow-500 rounded-full w-10 h-10" alt="user" />
+						<img src={post.userpicturepath} className="object-cover bg-white rounded-full w-10 h-10 border" alt="user" />
 						<div className="flex flex-col">
 							<b className="mb-2 capitalize">{post.username}</b>
 							<time dateTime="06-08-21" className="text-gray-400 text-xs">
@@ -132,7 +132,7 @@ const Post: React.FC<PostProps> = ({post, onNextPost, userid}) => {
 					</div>
 				</div>
 				<div className="flex items-center justify-between mt-4">
-					<img src={post.userpicturepath} className="bg-yellow-500 rounded-full w-10 h-10 object-cover border" alt="user" />
+					<img src={post.userpicturepath} className="bg-white rounded-full w-10 h-10 object-cover border" alt="user" />
 					<div className="flex items-center justify-between bg-gray-50 h-11 w-11/12 border rounded-2xl overflow-hidden px-4">
 						<input type="text" className="h-full w-full bg-gray-50 outline-none" placeholder="Write your comment..." name="comment" />
 					</div>

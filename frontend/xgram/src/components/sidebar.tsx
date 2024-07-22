@@ -39,7 +39,7 @@ export default function Sidebar({user}: sidebaruser) {
 						<div role="button" className="flex items-center w-full p-3 rounded-lg text-start leading-tight transition-all  outline-none">
 							{" "}
 							<div className="grid place-items-center mr-4">
-								<img src={user?.picturepath} className="object-cover bg-yellow-500 rounded-full size-7" alt="user" />
+								<img src={user?.picturepath} className="object-cover bg-white rounded-full size-7 border"/>
 							</div>
 							<a href="" className="flex-grow font-normal">
 								{user?.username}
