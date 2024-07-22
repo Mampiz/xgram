@@ -57,7 +57,7 @@ const Post: React.FC<PostProps> = ({post, onNextPost, userid}) => {
 
 	return (
 		<main className="">
-			<div className="border lg:min-w-[700px] lg:max-w-[700px] bg-white mt-6 rounded-2xl p-4">
+			<div className="border lg:min-w-[700px] lg:max-w-[700px] bg-white rounded-2xl p-4">
 				<div className="flex items-center justify-between">
 					<div className="gap-3.5 flex items-center">
 						<img src={post.userpicturepath} className="object-cover bg-yellow-500 rounded-full w-10 h-10" alt="user" />
