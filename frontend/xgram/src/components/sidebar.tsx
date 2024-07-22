@@ -8,23 +8,23 @@ export default function Sidebar({user}: sidebaruser) {
 	return (
 		<>
 			<div className="sidebar bg-gray-100">
-				<div className="relative flex flex-col bg-clip-border rounded-xl bg-white text-gray-700 m-2 p-4 shadow-lg shadow-blue-gray-900/5 ">
+				<div className="relative flex flex-col bg-clip-border rounded-lg bg-white text-gray-700 m-2 p-4 shadow-lg shadow-blue-gray-900/5 ">
 					<div className="px-4">
 						<h5 className="block antialiased tracking-normal font-sans text-xl font-semibold leading-snug text-gray-900">XGRAM</h5>
 					</div>
 					<nav className="flex flex-col gap-1 min-w-[240px] p-2 font-sans text-base font-normal text-gray-700">
-						<div role="button" className="flex items-center w-full p-3 rounded-lg text-start leading-tight transition-all hover:bg-slate-200 hover:bg-opacity-80 focus:bg-blue-50 focus:bg-opacity-80 active:bg-gray-50 active:bg-opacity-80 hover:text-[#3B82F6] focus:text-[#3B82F6] active:text-[#3B82F6] outline-none">
+						<div role="button" className="flex items-center w-full p-3 rounded-lg text-start leading-tight transition-all outline-none">
 							<div className="grid place-items-center mr-4">
 								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-7">
 									<path strokeLinecap="round" strokeLinejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
 								</svg>
 							</div>
-							<a href="" className="flex-grow font-medium">
+							<a href="" className="flex-grow font-medium hover:text-black">
 								Home
 							</a>
 						</div>
-						
-						<div role="button" className="flex items-center w-full p-3 rounded-lg text-start leading-tight transition-all hover:bg-slate-200 hover:bg-opacity-80 focus:bg-blue-50 focus:bg-opacity-80 active:bg-gray-50 active:bg-opacity-80 hover:text-[#3B82F6] focus:text-[#3B82F6] active:text-[#3B82F6] outline-none">
+
+						<div role="button" className="flex items-center w-full p-3 rounded-lg text-start leading-tight transition-all outline-none">
 							{" "}
 							<div className="grid place-items-center mr-4">
 								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-7">
@@ -35,7 +35,8 @@ export default function Sidebar({user}: sidebaruser) {
 								Notifications
 							</a>
 						</div>
-						<div role="button" className="flex items-center w-full p-3 rounded-lg text-start leading-tight transition-all hover:bg-slate-200 hover:bg-opacity-80 focus:bg-blue-50 focus:bg-opacity-80 active:bg-gray-50 active:bg-opacity-80 hover:text-[#3B82F6] focus:text-[#3B82F6] active:text-[#3B82F6] outline-none">
+
+						<div role="button" className="flex items-center w-full p-3 rounded-lg text-start leading-tight transition-all  outline-none">
 							{" "}
 							<div className="grid place-items-center mr-4">
 								<img src={user?.picturepath} className="object-cover bg-yellow-500 rounded-full size-7" alt="user" />
@@ -44,9 +45,18 @@ export default function Sidebar({user}: sidebaruser) {
 								{user?.username}
 							</a>
 						</div>
+
+						<div role="button" className="flex items-center w-full p-3 rounded-lg text-start leading-tight transition-all outline-none">
+							<button
+								className="h-[28px] ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 
+						disabled:pointer-events-none disabled:opacity-50 bg-primary  inline-flex items-center justify-center px-6 py-2 border-0 rounded-full font-medium
+						 text-white bg-blue-500 w-full">
+								Post
+							</button>
+						</div>
 					</nav>
 				</div>
-				<div className="relative flex flex-col bg-clip-border rounded-xl bg-white text-gray-700 m-2 p-4 shadow-lg shadow-blue-gray-900/5 h-[650px]">
+				<div className="relative flex flex-col bg-clip-border rounded-lg bg-white text-gray-700 m-2 p-4 shadow-lg shadow-blue-gray-900/5 h-[400px]">
 					<nav className="flex flex-col gap-1 min-w-[240px] p-2 font-sans text-base font-normal text-gray-700">
 						<div role="button" className="flex items-center w-full p-3 rounded-lg text-start leading-tight transition-al outline-none">
 							{" "}

@@ -2,9 +2,11 @@ import {useEffect, useState} from "react";
 import {PostData} from "../types/posttypes";
 import {User} from "../types/usetypes";
 import Extrasidebar from "./extrasidebar";
+import Xdasida from "./extra";
 import Loading from "./loading";
 import Post from "./post";
 import Sidebar from "./sidebar";
+import { Import } from "lucide-react";
 
 interface HomePageProps {
 	user: User | null;
@@ -45,8 +47,10 @@ const Homepage = ({user}: HomePageProps) => {
 
 	return (
 		<div className="flex h-screen w-screen">
+			<div className="w-1/6 max-h-screen bg-gray-100">
 			<Sidebar user={user} />
-			<main className="flex-1 flex flex-col items-center justify-center bg-gray-100 min-h-screen">
+			</div>
+			<main className="flex-1 flex flex-col items-center justify-center bg-gray-100 min-h-screen w-4/6">
 				<nav className="w-ful">
 					<ul className="flex justify-center space-x-4 p-4 font-medium text-gray-400">
 						<li className={`cursor-pointer hover:text-black hover:underline ${activeTab === "Swipe" ? "text-black underline" : ""}`} onClick={() => setActiveTab("Swipe")}>
@@ -61,8 +65,9 @@ const Homepage = ({user}: HomePageProps) => {
 					<div className="App">{isLoading ? <Loading /> : posts.length > 0 ? <Post post={posts[currentIndex]} onNextPost={handleNextPost} userid={user ? user.id : null} /> : <div>No posts available</div>}</div>
 				</div>
 			</main>
-
-			<Extrasidebar user={user} />
+			<div className="w-1/6 bg-gray-100">
+			<Xdasida/>
+			</div>
 		</div>
 	);
 };

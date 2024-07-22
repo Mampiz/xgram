@@ -72,7 +72,7 @@ const Post: React.FC<PostProps> = ({post, onNextPost, userid}) => {
 						<button
 							className="h-[28px] ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 
 						disabled:pointer-events-none disabled:opacity-50 bg-primary hover:bg-primary/90 inline-flex items-center justify-center px-6 py-2 border-0 rounded-full text-sm font-medium
-						 text-white bg-gradient-to-l from-blue-500 to-purple-600 shadow-lg hover:from-purple-500 hover:to-blue-600 mt-[-20px]">
+						 text-white bg-blue-500 mt-[-20px]">
 							Follow
 						</button>
 					</div>
@@ -104,12 +104,6 @@ const Post: React.FC<PostProps> = ({post, onNextPost, userid}) => {
 							</g>
 						</svg>
 						<div className="text-sm">{post.commentscount} Comments</div>
-					</div>
-					<div className="flex items-center gap-3">
-						<svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-red-500" viewBox="0 0 20 20" fill="currentColor">
-							<path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
-						</svg>
-						<div className="text-sm">{likes.length} Likes</div>
 					</div>
 					<div className="flex items-center gap-3">
 						<svg width="17px" height="22px" viewBox="0 0 17 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
@@ -145,21 +139,28 @@ const Post: React.FC<PostProps> = ({post, onNextPost, userid}) => {
 				</div>
 
 				<div className="flex items-center justify-around mt-4">
-					<div className="w-8 h-8" onClick={onNextPost}>
-						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 hover:text-red-500">
-							<path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
-						</svg>
-					</div>
-					<button
-						className="w-8 h-8"
+					<button className="w-8 h-8" onClick={onNextPost}>
+						<span className="flex h-min w-min space-x-1 items-center rounded-full text-gray-600 hover:text-black py-1 px-2 text-xs font-medium">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
+								<path d="M15.73 5.5h1.035A7.465 7.465 0 0 1 18 9.625a7.465 7.465 0 0 1-1.235 4.125h-.148c-.806 0-1.534.446-2.031 1.08a9.04 9.04 0 0 1-2.861 2.4c-.723.384-1.35.956-1.653 1.715a4.499 4.499 0 0 0-.322 1.672v.633A.75.75 0 0 1 9 22a2.25 2.25 0 0 1-2.25-2.25c0-1.152.26-2.243.723-3.218.266-.558-.107-1.282-.725-1.282H3.622c-1.026 0-1.945-.694-2.054-1.715A12.137 12.137 0 0 1 1.5 12.25c0-2.848.992-5.464 2.649-7.521C4.537 4.247 5.136 4 5.754 4H9.77a4.5 4.5 0 0 1 1.423.23l3.114 1.04a4.5 4.5 0 0 0 1.423.23ZM21.669 14.023c.536-1.362.831-2.845.831-4.398 0-1.22-.182-2.398-.52-3.507-.26-.85-1.084-1.368-1.973-1.368H19.1c-.445 0-.72.498-.523.898.591 1.2.924 2.55.924 3.977a8.958 8.958 0 0 1-1.302 4.666c-.245.403.028.959.5.959h1.053c.832 0 1.612-.453 1.918-1.227Z" />
+							</svg>
+						</span>
+					</button>
+					<div
 						onClick={() => {
 							onNextPost();
 							handleCreateLike();
-						}}>
-						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 hover:text-green-500">
-							<path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-						</svg>
-					</button>
+						}}
+						className="flex items-center px-6">
+						<button className="cursor-pointer">
+							<span className="flex h-min w-min space-x-1 items-center rounded-full text-rose-600 hover:bg-rose-50 py-1 px-2 text-xs font-medium">
+								<svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 fill-current hover:text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+								</svg>
+								<p className="font-semibold text-xs">{likes.length}</p>
+							</span>
+						</button>
+					</div>
 				</div>
 			</div>
 		</main>
