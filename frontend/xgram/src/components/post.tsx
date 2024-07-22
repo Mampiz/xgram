@@ -77,7 +77,7 @@ const Post: React.FC<PostProps> = ({post, onNextPost, userid}) => {
 						</button>
 					</div>
 				</div>
-				<div className="whitespace-pre-wrap mt-7">{post.description}</div>
+				<div className="whitespace-pre-wrap mt-7 break-words">{post.description}</div>
 
 				<div className="h-16 border-b flex items-center justify-around">
 					<div className="flex items-center gap-3">
