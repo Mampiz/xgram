@@ -1,12 +1,10 @@
 import {useEffect, useState} from "react";
 import {PostData} from "../types/posttypes";
 import {User} from "../types/usetypes";
-import Extrasidebar from "./extrasidebar";
 import Xdasida from "./extra";
 import Loading from "./loading";
 import Post from "./post";
 import Sidebar from "./sidebar";
-import { Import } from "lucide-react";
 
 interface HomePageProps {
 	user: User | null;
@@ -48,15 +46,15 @@ const Homepage = ({user}: HomePageProps) => {
 	return (
 		<div className="flex h-screen w-screen">
 			<div className="w-1/6 max-h-screen bg-gray-100">
-			<Sidebar user={user} />
+				<Sidebar user={user} />
 			</div>
 			<main className="flex-1 flex flex-col items-center justify-center bg-gray-100 min-h-screen w-4/6">
 				<nav className="w-ful">
-					<ul className="flex justify-center space-x-4 p-4 font-medium text-gray-400">
-						<li className={`cursor-pointer hover:text-black hover:underline ${activeTab === "Swipe" ? "text-black underline" : ""}`} onClick={() => setActiveTab("Swipe")}>
+					<ul className="flex justify-center space-x-4 p-4 text-gray-400 font-bold text-lg">
+						<li className={`cursor-pointer hover:text-black ${activeTab === "Swipe" ? "text-black " : ""}`} onClick={() => setActiveTab("Swipe")}>
 							Swipe
 						</li>
-						<li className={`cursor-pointer hover:text-black hover:underline ${activeTab === "Following" ? "text-black underline" : ""}`} onClick={() => setActiveTab("Following")}>
+						<li className={`cursor-pointer hover:text-black ${activeTab === "Following" ? "text-black " : ""}`} onClick={() => setActiveTab("Following")}>
 							Following
 						</li>
 					</ul>
@@ -66,7 +64,7 @@ const Homepage = ({user}: HomePageProps) => {
 				</div>
 			</main>
 			<div className="w-1/6 bg-gray-100">
-			<Xdasida/>
+				<Xdasida />
 			</div>
 		</div>
 	);
