@@ -71,8 +71,8 @@ const Post: React.FC<PostProps> = ({post, onNextPost, userid}) => {
 					<div className="bg-gray-100 rounded-full h-3.5 flex items-center justify-center">
 						<button
 							className="h-[28px] ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 
-						disabled:pointer-events-none disabled:opacity-50 bg-primary hover:bg-primary/90 inline-flex items-center justify-center px-6 py-2 border-0 rounded-full text-sm font-medium
-						 text-white bg-blue-500 mt-[-20px]">
+						disabled:pointer-events-none disabled:opacity-50 bg-primary inline-flex items-center justify-center px-6 py-2 border-0 rounded-full text-sm font-medium
+						 text-white bg-blue-400 mt-[-20px]">
 							Follow
 						</button>
 					</div>
