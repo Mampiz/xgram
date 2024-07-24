@@ -1,5 +1,6 @@
 import {User} from "@/types/usetypes";
 import {useState} from "react";
+import ExpandableCardDemo from "./blocks/expandable-card-demo-standard";
 
 interface sidebaruser {
 	user: User | null;
@@ -64,20 +65,8 @@ export default function Sidebar({user}: sidebaruser) {
 						</div>
 					</nav>
 				</div>
-				<div className="relative flex flex-col bg-clip-border rounded-lg bg-white text-gray-700 m-2 p-4 shadow-lg shadow-blue-gray-900/5 h-[400px]">
-					<nav className="flex flex-col gap-1 min-w-[240px] p-2 font-sans text-base font-normal text-gray-700">
-						<div role="button" className="flex items-center w-full p-3 rounded-lg text-start leading-tight transition-al outline-none">
-							{" "}
-							<div className="grid place-items-center mr-4">
-								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-7">
-									<path strokeLinecap="round" strokeLinejoin="round" d="M2.25 13.5h3.86a2.25 2.25 0 0 1 2.012 1.244l.256.512a2.25 2.25 0 0 0 2.013 1.244h3.218a2.25 2.25 0 0 0 2.013-1.244l.256-.512a2.25 2.25 0 0 1 2.013-1.244h3.859m-19.5.338V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18v-4.162c0-.224-.034-.447-.1-.661L19.24 5.338a2.25 2.25 0 0 0-2.15-1.588H6.911a2.25 2.25 0 0 0-2.15 1.588L2.35 13.177a2.25 2.25 0 0 0-.1.661Z" />
-								</svg>
-							</div>
-							<a href="" className="flex-grow font-normal">
-								Messages
-							</a>
-						</div>
-					</nav>
+				<div className="bg-white rounded-lg mt-4 m-2">
+				<ExpandableCardDemo />
 				</div>
 			</div>
 
@@ -97,7 +86,7 @@ export default function Sidebar({user}: sidebaruser) {
 								<p className="ml-[-20px] font-medium">{user?.username}</p>
 							</div>
 							<div className="ml-3 flex flex-col w-full">
-								<textarea placeholder="What's happening?" className="w-full text-xl bg-white resize-none outline-none h-32"></textarea>	
+								<textarea placeholder="What's happening?" className="w-full text-xl bg-white resize-none outline-none h-32"></textarea>
 							</div>
 						</div>
 						<div className="flex items-center text-blue-400 justify-between py-6 px-4 border-t">

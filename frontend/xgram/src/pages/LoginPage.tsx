@@ -22,6 +22,7 @@ const LoginPage: React.FC<LoginPageProps> = ({onLogin}) => {
 			password
 		};
 
+
 		try {
 			const response = await fetch("http://localhost:8080/login", {
 				method: "POST",
@@ -49,7 +50,7 @@ const LoginPage: React.FC<LoginPageProps> = ({onLogin}) => {
 
 	return (
 		<div className="min-w-screen min-h-screen bg-white flex items-center justify-center px-5 py-5">
-			<div className="bg-gray-100 text-gray-500 rounded-3xl shadow-xl w-full overflow-hidden" style={{maxWidth: "1000px"}}>
+			<div className="bg-gray-100 text-gray-500 rounded-3xl shadow-xl w-full overflow-hidden" style={{maxWidth: "400px"}}>
 				<div className="md:flex w-full">
 					<div className="w-full py-10 px-5 md:px-10">
 						<div className="text-center mb-10">

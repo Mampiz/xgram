@@ -4,10 +4,10 @@ import {Route, BrowserRouter as Router, Routes} from "react-router-dom";
 import {ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
+import Homepage from "./components/users";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
-import { User } from "./types/usetypes";
-import Homepage from "@/components/users";
+import {User} from "./types/usetypes";
 
 function App() {
 	const [user, setUser] = useState<User | null>(null);
