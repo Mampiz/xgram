@@ -64,7 +64,7 @@ const LoginPage: React.FC<LoginPageProps> = ({onLogin}) => {
 							<div className="flex -mx-3">
 								<div className="w-full px-3 mb-5">
 									<div className="flex">
-										<Input type="email" label="Email or User" defaultValue="example@email.com" description="We'll never share your email with anyone else." className="max-w-xs" value={username} onChange={e => setUsername(e.target.value)} required />
+										<Input type="email" label="Username" defaultValue="example@email.com" description="We'll never share your email with anyone else." className="max-w-xs" value={username} onChange={e => setUsername(e.target.value)} required />
 									</div>
 								</div>
 							</div>

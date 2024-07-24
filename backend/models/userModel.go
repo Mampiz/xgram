@@ -22,12 +22,6 @@ type User struct {
 	ImageURL      string `db:"image_url" json:"imageurl"`
 }
 
-type Friend struct {
-	ID       int `db:"id" json:"id"`
-	UserID   int `db:"userid" json:"userId"`
-	FriendID int `db:"friendid" json:"friendId"`
-}
-
 func GetAllUsers() ([]User, error) {
 	var users []User
 	err := db.DB.Select(&users, `SELECT id, username, firstname, lastname, email, password, picturepath, location, viewedprofile, impressions FROM users`)
@@ -90,29 +84,6 @@ func AuthenticateUser(username, password string) (User, error) {
 	return user, nil
 }
 
-func AddFriend(userid, friendid int) error {
-	_, err := db.DB.Exec(`INSERT INTO friends (userid, friendid)
-		VALUES ($1, $2)`,
-		userid, friendid)
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-func FriendExist(friend Friend) error {
-	var exists bool
-	err := db.DB.Get(&exists, `SELECT exists(SELECT 1 FROM friends WHERE userid=$1 AND friendid=$2)`, friend.UserID, friend.FriendID)
-	if err != nil {
-		return err
-	}
-
-	if exists {
-		return errors.New("already friends")
-	}
-
-	return nil
-}
 
 func SaveProfileImageURL(userID int, imageURL string) error {
 	query := `UPDATE users SET image_url = $1 WHERE id = $2`
