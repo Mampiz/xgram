@@ -34,3 +34,13 @@ func FriendExist(friend Friend) error {
 
 	return nil
 }
+
+func AllFriends(userid string) ([]Friend, error) {
+	var friends []Friend
+	query := `SELECT * FROM friends WHERE userid = $1`
+	err := db.DB.Select(&friends, query, userid)
+	if err != nil {
+		return friends, err
+	}
+	return friends, err
+}

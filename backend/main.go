@@ -44,6 +44,7 @@ func main() {
 	routes.TestRoutes(router)
 	routes.PostRoutes(router)
 	routes.LikeRoutes(router)
+	routes.FriendRoutes(router)
 
 	log.Fatal(router.Run(":8080"))
 }

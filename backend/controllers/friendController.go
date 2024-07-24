@@ -42,3 +42,20 @@ func AddFriend(c *gin.Context) {
 
 	c.JSON(http.StatusCreated, newFollow)
 }
+
+func GetAllFriend(c *gin.Context) {
+	userid := c.Param("id")
+
+	if _, err := uuid.Parse(userid); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid user ID"})
+		return
+	}
+
+	friends, err := models.AllFriends(userid)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, friends)
+
+}
