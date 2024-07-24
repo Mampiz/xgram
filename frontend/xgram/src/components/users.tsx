@@ -5,7 +5,6 @@ import Xdasida from "./extra";
 import Loading from "./loading";
 import Post from "./post";
 import Sidebar from "./sidebar";
-
 interface HomePageProps {
 	user: User | null;
 }

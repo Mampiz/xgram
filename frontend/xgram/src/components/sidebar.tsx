@@ -16,7 +16,7 @@ export default function Sidebar({user}: sidebaruser) {
 	return (
 		<>
 			<div className="sidebar bg-gray-100 mt-4 m-2">
-				<div className="relative flex flex-col bg-clip-border rounded-lg bg-white text-gray-700 m-2 p-4 shadow-lg shadow-blue-gray-900/5">
+				<div className="relative flex flex-col bg-clip-border rounded-lg bg-white text-gray-700 m-2 p-4 shadow-lg ">
 					<div className="px-4">
 						<h5 className="block antialiased tracking-normal font-sans text-xl font-semibold leading-snug text-gray-900">XGRAM</h5>
 					</div>
@@ -65,8 +65,8 @@ export default function Sidebar({user}: sidebaruser) {
 						</div>
 					</nav>
 				</div>
-				<div className="bg-white rounded-lg mt-4 m-2">
-				<ExpandableCardDemo />
+				<div className="bg-white rounded-lg mt-4 m-2 shadow-lg">
+					<ExpandableCardDemo />
 				</div>
 			</div>
 

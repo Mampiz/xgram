@@ -1,6 +1,7 @@
 // src/pages/LoginPage.tsx
-import {mdiEmailOutline, mdiLockOutline} from "@mdi/js";
-import Icon from "@mdi/react";
+import {EyeFilledIcon} from "@/components/icons/EyeFilledIcon";
+import {EyeSlashFilledIcon} from "@/components/icons/EyeSlashFilledIcon";
+import {Input} from "@nextui-org/react";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
@@ -14,6 +15,7 @@ interface LoginPageProps {
 const LoginPage: React.FC<LoginPageProps> = ({onLogin}) => {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
+	const [isVisible, setIsVisible] = useState(false);
 	const navigate = useNavigate();
 
 	const handleLogin = async () => {
@@ -21,7 +23,6 @@ const LoginPage: React.FC<LoginPageProps> = ({onLogin}) => {
 			username,
 			password
 		};
-
 
 		try {
 			const response = await fetch("http://localhost:8080/login", {
@@ -48,9 +49,11 @@ const LoginPage: React.FC<LoginPageProps> = ({onLogin}) => {
 		}
 	};
 
+	const toggleVisibility = () => setIsVisible(!isVisible);
+
 	return (
 		<div className="min-w-screen min-h-screen bg-white flex items-center justify-center px-5 py-5">
-			<div className="bg-gray-100 text-gray-500 rounded-3xl shadow-xl w-full overflow-hidden" style={{maxWidth: "400px"}}>
+			<div className="bg-white text-gray-500 rounded-3xl  w-full overflow-hidden" style={{maxWidth: "400px"}}>
 				<div className="md:flex w-full">
 					<div className="w-full py-10 px-5 md:px-10">
 						<div className="text-center mb-10">
@@ -60,28 +63,28 @@ const LoginPage: React.FC<LoginPageProps> = ({onLogin}) => {
 						<div>
 							<div className="flex -mx-3">
 								<div className="w-full px-3 mb-5">
-									<label htmlFor="email" className="text-xs font-semibold px-1">
-										Email
-									</label>
 									<div className="flex">
-										<div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
-											<Icon path={mdiEmailOutline} size={1} color="gray" />
-										</div>
-										<input id="email" type="email" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="example@example.com" value={username} onChange={e => setUsername(e.target.value)} required />
+										<Input type="email" label="Email or User" defaultValue="example@email.com" description="We'll never share your email with anyone else." className="max-w-xs" value={username} onChange={e => setUsername(e.target.value)} required />
 									</div>
 								</div>
 							</div>
 							<div className="flex -mx-3">
 								<div className="w-full px-3 mb-12">
-									<label htmlFor="password" className="text-xs font-semibold px-1">
-										Password
-									</label>
-									<div className="flex">
-										<div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
-											<Icon path={mdiLockOutline} size={1} color="gray" />
-										</div>
-										<input id="password" type="password" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="************" value={password} onChange={e => setPassword(e.target.value)} required />
-									</div>
+									<Input
+										label="Password"
+										variant="flat"
+										placeholder="Enter your password"
+										endContent={
+											<button className="focus:outline-none" type="button" onClick={toggleVisibility} aria-label="toggle password visibility">
+												{isVisible ? <EyeSlashFilledIcon className="text-2xl text-default-400 pointer-events-none" /> : <EyeFilledIcon className="text-2xl text-default-400 pointer-events-none" />}
+											</button>
+										}
+										type={isVisible ? "text" : "password"}
+										className="max-w-xs"
+										value={password}
+										onChange={e => setPassword(e.target.value)}
+										required
+									/>
 								</div>
 							</div>
 							<div className="flex -mx-3">
