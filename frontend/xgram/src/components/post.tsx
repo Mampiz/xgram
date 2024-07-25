@@ -5,7 +5,7 @@ import {LikeData, PostData} from "../types/posttypes";
 interface PostProps {
 	post: PostData;
 	onNextPost: () => void;
-	userid: number | null;
+	userid: string | null;
 }
 
 const Post: React.FC<PostProps> = ({post, onNextPost, userid}) => {

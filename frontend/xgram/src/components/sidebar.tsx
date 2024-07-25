@@ -1,5 +1,6 @@
-import {User} from "@/types/usetypes";
-import {useState} from "react";
+import {User, UserFriend} from "@/types/usetypes";
+import {useEffect, useState} from "react";
+import {toast} from "react-toastify";
 import ExpandableCardDemo from "./blocks/expandable-card-demo-standard";
 
 interface sidebaruser {
@@ -8,10 +9,41 @@ interface sidebaruser {
 
 export default function Sidebar({user}: sidebaruser) {
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
+	const [friends, setFriends] = useState<UserFriend[]>([]);
 
 	const togglePopup = () => {
 		setIsPopupOpen(!isPopupOpen);
 	};
+
+	useEffect(() => {
+		const fetchFriendData = async () => {
+			if (user?.id) {
+				try {
+					const response = await fetch(`http://localhost:8080/friend/${user.id}`, {
+						method: "GET", // Asegúrate de que el método HTTP sea correcto
+						headers: {
+							"Content-Type": "application/json"
+						},
+						mode: "cors"
+					});
+					if (response.ok) {
+						const data: UserFriend[] = await response.json();
+						console.log(data);
+						setFriends(data || []);
+					} else {
+						console.error("Error fetching friends:", response.statusText);
+						toast.error("Error cargando los amigos");
+						setFriends([]);
+					}
+				} catch (error) {
+					console.error("Error fetching friends data:", error);
+					toast.error("Error cargando los amigos");
+					setFriends([]);
+				}
+			}
+		};
+		fetchFriendData();
+	}, [user?.id]);
 
 	return (
 		<>
@@ -66,7 +98,7 @@ export default function Sidebar({user}: sidebaruser) {
 					</nav>
 				</div>
 				<div className="bg-white rounded-lg mt-4 m-2 shadow-lg">
-					<ExpandableCardDemo />
+					<ExpandableCardDemo friends={friends} />
 				</div>
 			</div>
 
