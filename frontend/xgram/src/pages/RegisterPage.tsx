@@ -1,9 +1,94 @@
 // src/pages/RegisterPage.tsx
-import {mdiAccountOutline, mdiEmailOutline, mdiLockOutline} from "@mdi/js";
+import {mdiEmailOutline, mdiLockOutline} from "@mdi/js";
 import Icon from "@mdi/react";
+import {useState} from "react";
+import {useNavigate} from "react-router-dom";
+import {toast} from "react-toastify";
 import "tailwindcss/tailwind.css";
+import {User} from "../types/usetypes";
 
-const RegisterPage = () => {
+interface LoginPageProps {
+	onLogin: (user: User) => void;
+}
+
+const RegisterPage: React.FC<LoginPageProps> = ({onLogin}) => {
+	const [Email, setEmail] = useState("");
+	const [Password, setPassword] = useState("");
+	const [FirstName, setFirst] = useState("");
+	const [LastName, setLast] = useState("");
+	const [Username, setUsername] = useState("");
+	const navigate = useNavigate();
+	const PicturePath = '/path/to/picture';
+	const Location = 'casa de irache';
+	const ViewedProfile = 0;
+	const Impressions = 0;
+	const ImageURL = '/path/to/image';
+
+
+
+	const handleRegister = async () => {
+		const formDataJson = {
+			Email,
+			Password,
+			FirstName,
+			LastName,
+			Username,
+			PicturePath,
+			Location,
+			ViewedProfile,
+			Impressions,
+			ImageURL
+		};
+
+		try {
+			const response = await fetch("http://localhost:8080/register", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json"
+				},
+				body: JSON.stringify(formDataJson)
+			});
+			if (response.ok) {
+				const data = await response.json();
+				localStorage.setItem("user", JSON.stringify(data.user));
+				toast.success("Register successful");
+			} else {
+				const errorData = await response.json();
+				toast.error(`Register failed: ${errorData.error}`);
+			}
+		} catch (error) {
+			console.error("Error registering:", error);
+			toast.error("Error registering");
+		}
+
+		const username = Username;
+		const password = Password;
+
+		const loginData = {
+			username,
+			password
+		};
+
+		try {
+			const response = await fetch("http://localhost:8080/login", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json"
+				},
+				body: JSON.stringify(loginData)
+			});
+			if (response.ok) {
+				const data = await response.json();
+				localStorage.setItem("user", JSON.stringify(data.user));
+				console.log(data.user);
+				navigate("/");
+				onLogin(data.user);
+			}
+		} catch (error) {
+			console.error("Error logging in:", error);
+		}
+	};
+
 	return (
 		<div className="min-w-screen min-h-screen bg-white flex items-center justify-center px-5 py-5">
 			<div className="bg-gray-100 text-gray-500 rounded-3xl shadow-xl w-full overflow-hidden" style={{maxWidth: "1000px"}}>
@@ -49,15 +134,15 @@ const RegisterPage = () => {
 						</div>
 						<div>
 							<div className="flex -mx-3">
-								<div className="w-1/2 px-3 mb-5">
+							<div className="w-1/2 px-3 mb-5">
 									<label htmlFor="first-name" className="text-xs font-semibold px-1">
 										First name
 									</label>
 									<div className="flex">
 										<div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
-											<Icon path={mdiAccountOutline} size={1} color="gray" />
+											<Icon path={mdiEmailOutline} size={1} color="gray" />
 										</div>
-										<input id="first-name" type="text" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="Santiago" />
+										<input id="first-name" type="text" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="Santiago" value={FirstName} onChange={e => setFirst (e.target.value)} required />
 									</div>
 								</div>
 								<div className="w-1/2 px-3 mb-5">
@@ -66,12 +151,25 @@ const RegisterPage = () => {
 									</label>
 									<div className="flex">
 										<div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
-											<Icon path={mdiAccountOutline} size={1} color="gray" />
+											<Icon path={mdiEmailOutline} size={1} color="gray" />
 										</div>
-										<input id="last-name" type="text" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="Gabriel" />
+										<input id="last-name" type="text" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="Gabriel" value={LastName} onChange={e => setLast(e.target.value)} required />
 									</div>
 								</div>
 							</div>
+							<div className="flex -mx-3">
+								<div className="w-full px-3 mb-5">
+									<label htmlFor="username" className="text-xs font-semibold px-1">
+										Username
+									</label>
+									<div className="flex">
+										<div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
+											<Icon path={mdiEmailOutline} size={1} color="gray" />
+										</div>
+										<input id="first-name" type="text" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="Santi" value={Username} onChange={e => setUsername(e.target.value)} required />
+									</div>
+								</div>
+							</div>	
 							<div className="flex -mx-3">
 								<div className="w-full px-3 mb-5">
 									<label htmlFor="email" className="text-xs font-semibold px-1">
@@ -81,7 +179,7 @@ const RegisterPage = () => {
 										<div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
 											<Icon path={mdiEmailOutline} size={1} color="gray" />
 										</div>
-										<input id="email" type="email" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="example@example.com" />
+										<input id="email" type="email" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="example@example.com" value={Email} onChange={e => setEmail(e.target.value)} required />
 									</div>
 								</div>
 							</div>
@@ -94,13 +192,15 @@ const RegisterPage = () => {
 										<div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
 											<Icon path={mdiLockOutline} size={1} color="gray" />
 										</div>
-										<input id="password" type="password" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="************" />
+										<input id="password" type="password" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="************" value={Password} onChange={e => setPassword(e.target.value)} required />
 									</div>
 								</div>
 							</div>
 							<div className="flex -mx-3">
 								<div className="w-full px-3 mb-5">
-									<button className="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold">REGISTER NOW</button>
+									<button className="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold" onClick={handleRegister}>
+										REGISTER NOW
+									</button>
 								</div>
 							</div>
 						</div>

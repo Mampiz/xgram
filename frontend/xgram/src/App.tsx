@@ -28,7 +28,7 @@ function App() {
 		<Router>
 			<Routes>
 				<Route path="/" element={<Homepage user={user} />} />
-				<Route path="/register" element={<RegisterPage />} />
+				<Route path="/register" element={<RegisterPage onLogin={handleLogin} />} />
 				<Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
 			</Routes>
 			<ToastContainer />
