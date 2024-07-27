@@ -5,6 +5,8 @@ import Xdasida from "./extra";
 import Loading from "./loading";
 import Post from "./post";
 import Sidebar from "./sidebar";
+import ProtectedRoute from "./protectedRoute";
+
 interface HomePageProps {
 	user: User | null;
 }
@@ -43,29 +45,32 @@ const Homepage = ({user}: HomePageProps) => {
 	};
 
 	return (
-		<div className="flex h-screen w-screen">
-			<div className="w-1/6 max-h-screen bg-gray-100">
-				<Sidebar user={user} />
-			</div>
-			<main className="flex-1 flex flex-col items-center justify-center bg-gray-100 min-h-screen w-4/6">
-				<nav className="w-ful">
-					<ul className="flex justify-center space-x-4 p-4 text-gray-400 font-bold text-lg">
-						<li className={`cursor-pointer hover:text-black ${activeTab === "Swipe" ? "text-black " : ""}`} onClick={() => setActiveTab("Swipe")}>
-							Swipe
-						</li>
-						<li className={`cursor-pointer hover:text-black ${activeTab === "Following" ? "text-black " : ""}`} onClick={() => setActiveTab("Following")}>
-							Following
-						</li>
-					</ul>
-				</nav>
-				<div className="flex-1 flex items-center justify-center w-full p-4">
-					<div className="App">{isLoading ? <Loading /> : posts.length > 0 ? <Post post={posts[currentIndex]} onNextPost={handleNextPost} userid={user ? user.id : null} /> : <div>No posts available</div>}</div>
+		<ProtectedRoute>
+			<div className="flex h-screen w-screen">
+				<div className="w-1/6 max-h-screen bg-gray-100">
+					<Sidebar user={user} />
 				</div>
-			</main>
-			<div className="w-1/6 bg-gray-100">
-				<Xdasida />
+				<main className="flex-1 flex flex-col items-center justify-center bg-gray-100 min-h-screen w-4/6">
+					<nav className="w-ful">
+						<ul className="flex justify-center space-x-4 p-4 text-gray-400 font-bold text-lg">
+							<li className={`cursor-pointer hover:text-black ${activeTab === "Swipe" ? "text-black " : ""}`} onClick={() => setActiveTab("Swipe")}>
+								Swipe
+							</li>
+							<li className={`cursor-pointer hover:text-black ${activeTab === "Following" ? "text-black " : ""}`} onClick={() => setActiveTab("Following")}>
+								Following
+							</li>
+						</ul>
+					</nav>
+					<div className="flex-1 flex items-center justify-center w-full p-4">
+						<div className="App">{isLoading ? <Loading /> : posts.length > 0 ? <Post post={posts[currentIndex]} onNextPost={handleNextPost} userid={user ? user.id : null} /> : <div>No posts available</div>}</div>
+					</div>
+				</main>
+				<div className="w-1/6 bg-gray-100">
+					<Xdasida />
+				</div>
 			</div>
-		</div>
+		</ProtectedRoute>
+		
 	);
 };
 
