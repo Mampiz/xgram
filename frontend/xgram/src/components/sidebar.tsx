@@ -90,8 +90,8 @@ export default function Sidebar({user}: sidebaruser) {
 							<button
 								onClick={togglePopup}
 								className="h-[28px] ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 
-						disabled:pointer-events-none disabled:opacity-50 bg-primary  inline-flex items-center justify-center px-6 py-2 border-0 rounded-full font-medium
-						 text-white bg-blue-400 w-full">
+						disabled:pointer-events-none disabled:opacity-50 inline-flex items-center justify-center px-6 py-2 border-0 rounded-full font-medium
+						 text-white bg-[#429e9e] w-full">
 								Post
 							</button>
 						</div>

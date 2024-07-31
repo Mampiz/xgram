@@ -52,7 +52,7 @@ const LoginPage: React.FC<LoginPageProps> = ({onLogin}) => {
 	const toggleVisibility = () => setIsVisible(!isVisible);
 
 	return (
-		<div className="min-w-screen min-h-screen bg-white flex items-center justify-center px-5 py-5">
+		<div className="min-w-screen min-h-screen bg-[#62b5ad] flex items-center justify-center px-5 py-5">
 			<div className="bg-white text-gray-500 rounded-3xl  w-full overflow-hidden" style={{maxWidth: "400px"}}>
 				<div className="md:flex w-full">
 					<div className="w-full py-10 px-5 md:px-10">
@@ -89,9 +89,10 @@ const LoginPage: React.FC<LoginPageProps> = ({onLogin}) => {
 							</div>
 							<div className="flex -mx-3">
 								<div className="w-full px-3 mb-5">
-									<button className="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold" onClick={handleLogin}>
+									<button className="block w-full max-w-xs mx-auto bg-[#ffb066] hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold" onClick={handleLogin}>
 										LOGIN NOW
 									</button>
+									<p>Aún no tienes cuenta?<a href="/register"> Register </a></p>
 								</div>
 							</div>
 						</div>

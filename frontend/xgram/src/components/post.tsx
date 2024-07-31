@@ -62,7 +62,7 @@ const Post: React.FC<PostProps> = ({post, onNextPost, userid}) => {
 					<div className="gap-3.5 flex items-center">
 						<img src={post.userpicturepath} className="object-cover bg-white rounded-full w-10 h-10 border" alt="user" />
 						<div className="flex flex-col">
-							<b className="mb-2 capitalize">{post.username}</b>
+							<b className="capitalize">{post.username}</b>
 							<time dateTime="06-08-21" className="text-gray-400 text-xs">
 								{post.location}
 							</time>
@@ -70,9 +70,9 @@ const Post: React.FC<PostProps> = ({post, onNextPost, userid}) => {
 					</div>
 					<div className="bg-gray-100 rounded-full h-3.5 flex items-center justify-center">
 						<button
-							className="h-[28px] ring-offset-background transition-colors focus-visible:outline-none bg-[#ADD8E6] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 
-						disabled:pointer-events-none disabled:opacity-50 bg-primary inline-flex items-center justify-center px-6 py-2 border-0 rounded-full text-sm font-medium
-						 text-white mt-[-20px]">
+							className="h-[28px] ring-offset-background transition-colors focus-visible:outline-none bg-[#ffb066] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 
+						disabled:pointer-events-none disabled:opacity-50 inline-flex items-center justify-center px-6 py-2 border-0 rounded-full text-sm font-medium
+						 text-white mt-[-20px] hover:bg-[#ffcb7d]">
 							Follow
 						</button>
 					</div>
@@ -153,8 +153,9 @@ const Post: React.FC<PostProps> = ({post, onNextPost, userid}) => {
 						}}
 						className="flex items-center px-6">
 						<button className="cursor-pointer">
-							<span className="flex h-min w-min space-x-1 items-center rounded-full text-rose-600 hover:bg-rose-50 py-1 px-2 text-xs font-medium">
-								<svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 fill-current hover:text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<span
+								className="flex h-min w-min space-x-1 items-center rounded-full text-[#429e9e] hover:bg-[#c5e8de] py-1 px-2 text-xs font-medium">
+								<svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 fill-current hover:text-[#429e9e]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
 								</svg>
 								<p className="font-semibold text-xs">{likes.length}</p>
