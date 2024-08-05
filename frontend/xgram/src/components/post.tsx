@@ -55,6 +55,26 @@ const Post: React.FC<PostProps> = ({post, onNextPost, userid}) => {
 		}
 	};
 
+	const handleCreateFriend = async () => {
+		try {
+			const response = await fetch("http://localhost:8080/friend", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json"
+				},
+				body: JSON.stringify({userid: userid, friendid: post.userref})
+			});
+			if (response.ok) {
+				toast.success("Amigo añadido correctamente");
+			} else {
+				console.log("ya eres amigo de este usuario");
+			}
+		} catch (error) {
+			console.error("Error añadiendo amigo:", error);
+			toast.error("Error creando el like");
+		}
+	};
+
 	return (
 		<main className="">
 			<div className="border lg:min-w-[700px] lg:max-w-[700px] bg-white rounded-2xl p-4">
@@ -70,6 +90,7 @@ const Post: React.FC<PostProps> = ({post, onNextPost, userid}) => {
 					</div>
 					<div className="bg-gray-100 rounded-full h-3.5 flex items-center justify-center">
 						<button
+							onClick={handleCreateFriend}
 							className="h-[28px] ring-offset-background transition-colors focus-visible:outline-none bg-[#ffb066] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 
 						disabled:pointer-events-none disabled:opacity-50 inline-flex items-center justify-center px-6 py-2 border-0 rounded-full text-sm font-medium
 						 text-white mt-[-20px] hover:bg-[#ffcb7d]">
@@ -153,8 +174,7 @@ const Post: React.FC<PostProps> = ({post, onNextPost, userid}) => {
 						}}
 						className="flex items-center px-6">
 						<button className="cursor-pointer">
-							<span
-								className="flex h-min w-min space-x-1 items-center rounded-full text-[#429e9e] hover:bg-[#c5e8de] py-1 px-2 text-xs font-medium">
+							<span className="flex h-min w-min space-x-1 items-center rounded-full text-[#429e9e] hover:bg-[#c5e8de] py-1 px-2 text-xs font-medium">
 								<svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 fill-current hover:text-[#429e9e]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
 								</svg>

@@ -47,10 +47,10 @@ const Homepage = ({user}: HomePageProps) => {
 	return (
 		<ProtectedRoute>
 			<div className="flex h-screen w-screen">
-				<div className="w-1/6 max-h-screen bg-[#8CCFC9]">
+				<div className="w-1/5 max-h-screen bg-[#8CCFC9]">
 					<Sidebar user={user} />
 				</div>
-				<main className="flex-1 flex flex-col items-center justify-center bg-white min-h-screen w-4/6">
+				<main className="flex-1 flex flex-col items-center justify-center bg-white min-h-screen w-2/5">
 					<nav className="w-ful">
 						<ul className="flex justify-center space-x-4 p-4 text-gray-400 font-bold text-lg">
 							<li className={`cursor-pointer hover:text-black ${activeTab === "Swipe" ? "text-black " : ""}`} onClick={() => setActiveTab("Swipe")}>
@@ -65,7 +65,7 @@ const Homepage = ({user}: HomePageProps) => {
 						<div className="App">{isLoading ? <Loading /> : posts.length > 0 ? <Post post={posts[currentIndex]} onNextPost={handleNextPost} userid={user ? user.id : null} /> : <div>No posts available</div>}</div>
 					</div>
 				</main>
-				<div className="w-1/6 bg-white">
+				<div className="w-1/5 bg-white">
 					<Xdasida />
 				</div>
 			</div>
