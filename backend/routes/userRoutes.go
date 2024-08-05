@@ -2,6 +2,7 @@ package routes
 
 import (
 	"example/yx/controllers"
+	"example/yx/middleware"
 
 	"github.com/gin-gonic/gin"
 )
@@ -12,6 +13,7 @@ func UserRoutes(router *gin.Engine) {
 	router.POST("/login", controllers.LoginUser)
 	router.POST("/friend", controllers.AddFriend)
 	router.POST("/upload", controllers.UploadImage)
+	router.GET("/validate", middleware.RequireAuth, controllers.Validate)
 }
 
 func TestRoutes(router *gin.Engine) {
