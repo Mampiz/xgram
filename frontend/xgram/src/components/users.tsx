@@ -47,7 +47,7 @@ const Homepage = ({user}: HomePageProps) => {
 	return (
 		<ProtectedRoute>
 			<div className="flex h-screen w-screen">
-				<div className="w-1/6 max-h-screen bg-gray-100">
+				<div className="w-1/6 max-h-screen bg-[#8CCFC9]">
 					<Sidebar user={user} />
 				</div>
 				<main className="flex-1 flex flex-col items-center justify-center bg-white min-h-screen w-4/6">

@@ -51,6 +51,7 @@ const RegisterPage: React.FC<LoginPageProps> = ({onLogin}) => {
 				localStorage.setItem("user", JSON.stringify(data.user));
 				toast.success("Register successful");
 			} else {
+				navigate("/register");
 				const errorData = await response.json();
 				toast.error(`Register failed: ${errorData.error}`);
 			}
@@ -138,7 +139,7 @@ const RegisterPage: React.FC<LoginPageProps> = ({onLogin}) => {
 									</label>
 									<div className="flex">
 										<div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"></div>
-										<input id="first-name" type="text" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="Santiago" value={FirstName} onChange={e => setFirst(e.target.value)} required />
+										<input id="first-name" type="text" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-[#ffcb7d]" placeholder="Santiago" value={FirstName} onChange={e => setFirst(e.target.value)} required />
 									</div>
 								</div>
 								<div className="w-1/2 px-3 mb-5">
@@ -147,7 +148,7 @@ const RegisterPage: React.FC<LoginPageProps> = ({onLogin}) => {
 									</label>
 									<div className="flex">
 										<div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"></div>
-										<input id="last-name" type="text" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="Gabriel" value={LastName} onChange={e => setLast(e.target.value)} required />
+										<input id="last-name" type="text" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-[#ffcb7d]" placeholder="Gabriel" value={LastName} onChange={e => setLast(e.target.value)} required />
 									</div>
 								</div>
 							</div>
@@ -162,7 +163,7 @@ const RegisterPage: React.FC<LoginPageProps> = ({onLogin}) => {
 												<path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
 											</svg>
 										</div>
-										<input id="first-name" type="text" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="Santi" value={Username} onChange={e => setUsername(e.target.value)} required />
+										<input id="first-name" type="text" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-[#ffcb7d]" placeholder="Santi" value={Username} onChange={e => setUsername(e.target.value)} required />
 									</div>
 								</div>
 							</div>
@@ -175,7 +176,7 @@ const RegisterPage: React.FC<LoginPageProps> = ({onLogin}) => {
 										<div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
 											<Icon path={mdiEmailOutline} size={1} color="gray" />
 										</div>
-										<input id="email" type="email" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="example@example.com" value={Email} onChange={e => setEmail(e.target.value)} required />
+										<input id="email" type="email" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-[#ffcb7d]" placeholder="example@example.com" value={Email} onChange={e => setEmail(e.target.value)} required />
 									</div>
 								</div>
 							</div>
@@ -188,7 +189,7 @@ const RegisterPage: React.FC<LoginPageProps> = ({onLogin}) => {
 										<div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
 											<Icon path={mdiLockOutline} size={1} color="gray" />
 										</div>
-										<input id="password" type="password" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="************" value={Password} onChange={e => setPassword(e.target.value)} required />
+										<input id="password" type="password" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-[#ffcb7d]" placeholder="************" value={Password} onChange={e => setPassword(e.target.value)} required />
 									</div>
 								</div>
 							</div>
