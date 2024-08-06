@@ -45,7 +45,7 @@ func CreatePost(post Post) (Post, error) {
 	return post, nil
 }
 
-func GetPostByID(id string) (Post, error) { // Changed parameter type from int to string
+func GetPostByID(id string) (Post, error) {
 	var post Post
 	query := `
 		SELECT p.id, p.userref, u.username, p.location, p.description, u.picturepath AS userpicturepath, p.picturepath, p.likescount, p.commentscount
@@ -72,4 +72,32 @@ func GetPostsByUserID(userID string) ([]Post, error) { // Changed parameter type
 		return nil, err
 	}
 	return posts, nil
+}
+
+func GetAllPostsFollowing(userid string) ([]Post, error) {
+	var posts []Post
+	query := `
+		SELECT p.id, p.userref, u.username, p.location, p.description, u.picturepath AS userpicturepath, p.picturepath, p.likescount, p.commentscount
+		FROM posts p
+		JOIN users u ON p.userref = u.id`
+	err := db.DB.Select(&posts, query)
+	if err != nil {
+		return nil, err
+	}
+	if posts == nil {
+		posts = []Post{}
+	}
+	var newPosts []Post
+	for i := 0; i < len(posts); i++ {
+		idd := posts[i].UserRef
+		var exists bool
+		err := db.DB.Get(&exists, `SELECT exists(SELECT 1 FROM friends WHERE userid=$1 AND friendid=$2)`, userid, idd)
+
+		if err == nil {
+			if exists {
+				newPosts = append(newPosts, posts[i])
+			}
+		}
+	}
+	return newPosts, nil
 }

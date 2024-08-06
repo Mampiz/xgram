@@ -92,7 +92,7 @@ const LoginPage: React.FC<LoginPageProps> = ({onLogin}) => {
 									<button className="block w-full max-w-xs mx-auto bg-[#ffb066] hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold" onClick={handleLogin}>
 										LOGIN NOW
 									</button>
-									<p>Aún no tienes cuenta?<a href="/register"> Register </a></p>
+									<p className="mt-2">Aún no tienes cuenta?<a className="text-[#ffb066] font-semibold" href="/register"> Register </a></p>
 								</div>
 							</div>
 						</div>
