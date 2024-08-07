@@ -24,7 +24,7 @@ func AddFriend(c *gin.Context) {
 		return
 	}
 
-	err := models.FriendExist(friend)
+	err := models.FriendExists(friend)
 	if err != nil {
 		if err.Error() == "already friends" {
 			c.JSON(http.StatusConflict, gin.H{"error": err.Error()})

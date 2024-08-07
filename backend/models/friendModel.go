@@ -18,8 +18,6 @@ type UserFriend struct {
 	LastName      string `db:"lastname" json:"lastname"`
 	Email         string `db:"email" json:"email"`
 	Password      string `db:"password" json:"password"`
-	PicturePath   string `db:"picturepath" json:"picturepath"`
-	Location      string `db:"location" json:"location"`
 	ViewedProfile int    `db:"viewedprofile" json:"viewedprofile"`
 	Impressions   int    `db:"impressions" json:"impressions"`
 	ImageURL      string `db:"image_url" json:"imageurl"`
@@ -27,7 +25,7 @@ type UserFriend struct {
 
 func AddFriend(friend Friend) (Friend, error) {
 	_, err := db.DB.Exec(`INSERT INTO friends (userid, friendid)
-		VALUES ($1, $2)`,
+		VALUES ($1, $2) RETURNING id`,
 		friend.UserID, friend.FriendID)
 	if err != nil {
 		return Friend{}, err
@@ -35,7 +33,7 @@ func AddFriend(friend Friend) (Friend, error) {
 	return friend, nil
 }
 
-func FriendExist(friend Friend) error {
+func FriendExists(friend Friend) error {
 	var exists bool
 	err := db.DB.Get(&exists, `SELECT exists(SELECT 1 FROM friends WHERE userid=$1 AND friendid=$2)`, friend.UserID, friend.FriendID)
 	if err != nil {
@@ -51,7 +49,7 @@ func FriendExist(friend Friend) error {
 
 func AllFriends(userid string) ([]UserFriend, error) {
 	var friends []UserFriend
-	query := `SELECT u.id, u.username, u.firstname, u.lastname, u.email, u.password, u.picturepath, u.location, u.viewedprofile, u.impressions, u.image_url
+	query := `SELECT u.id, u.username, u.firstname, u.lastname, u.email, u.password, u.viewedprofile, u.impressions, u.image_url
 			  FROM friends f
 			  JOIN users u ON f.friendid = u.id
 			  WHERE f.userid = $1`

@@ -15,23 +15,22 @@ type User struct {
 	LastName      string `db:"lastname" json:"lastname"`
 	Email         string `db:"email" json:"email"`
 	Password      string `db:"password" json:"password"`
-	PicturePath   string `db:"picturepath" json:"picturepath"`
-	Location      string `db:"location" json:"location"`
 	ViewedProfile int    `db:"viewedprofile" json:"viewedprofile"`
 	Impressions   int    `db:"impressions" json:"impressions"`
 	ImageURL      string `db:"image_url" json:"imageurl"`
+	CreatedAt     string `db:"createdat" json:"created_at"`
 }
 
 func GetAllUsers() ([]User, error) {
 	var users []User
-	err := db.DB.Select(&users, `SELECT id, username, firstname, lastname, email, password, picturepath, location, viewedprofile, impressions FROM users`)
+	err := db.DB.Select(&users, `SELECT id, username, firstname, lastname, email, password, viewedprofile, impressions, image_url, createdAt FROM users`)
 	if err != nil {
 		return nil, err
 	}
 	return users, nil
 }
 
-func GetUsernameByID(userID int) (string, error) {
+func GetUsernameByID(userID string) (string, error) {
 	var username string
 	err := db.DB.Get(&username, `SELECT username FROM users WHERE id = $1`, userID)
 	if err != nil {
@@ -57,15 +56,15 @@ func RegisterUser(user User) error {
 	}
 	user.Password = string(hashedPassword)
 
-	_, err = db.DB.Exec(`INSERT INTO users (username, firstname, lastname, email, password, picturepath, location, viewedprofile, impressions, image_url)
-		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
-		user.Username, user.FirstName, user.LastName, user.Email, user.Password, user.PicturePath, user.Location, user.ViewedProfile, user.Impressions, user.ImageURL)
+	_, err = db.DB.Exec(`INSERT INTO users (id, username, firstname, lastname, email, password, viewedprofile, impressions, image_url, createdAt)
+		VALUES (uuid_generate_v4(), $1, $2, $3, $4, $5, $6, $7, $8, DEFAULT)`,
+		user.Username, user.FirstName, user.LastName, user.Email, user.Password, user.ViewedProfile, user.Impressions, user.ImageURL)
 	return err
 }
 
 func AuthenticateUser(username, password string) (User, error) {
 	var user User
-	query := `SELECT id, username, firstname, lastname, email, password, picturepath, location, viewedprofile, impressions, image_url FROM users WHERE username=$1`
+	query := `SELECT id, username, firstname, lastname, email, password, viewedprofile, impressions, image_url, createdAt FROM users WHERE username=$1`
 	err := db.DB.Get(&user, query, username)
 	if err != nil {
 		// Log the actual error
@@ -84,8 +83,7 @@ func AuthenticateUser(username, password string) (User, error) {
 	return user, nil
 }
 
-
-func SaveProfileImageURL(userID int, imageURL string) error {
+func SaveProfileImageURL(userID string, imageURL string) error {
 	query := `UPDATE users SET image_url = $1 WHERE id = $2`
 	_, err := db.DB.Exec(query, imageURL, userID)
 	return err

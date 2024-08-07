@@ -5,7 +5,6 @@ import (
 	"example/yx/services"
 	"net/http"
 	"os"
-	"strconv"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -109,14 +108,8 @@ func UploadImage(c *gin.Context) {
 
 	// Suponiendo que tienes el user_id en el contexto como string, convertir a int
 	userIDStr := c.PostForm("user_id")
-	userID, err := strconv.Atoi(userIDStr)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid user ID"})
-		return
-	}
-
 	// Guarda la URL de la imagen en la base de datos
-	err = models.SaveProfileImageURL(userID, imageURL)
+	err = models.SaveProfileImageURL(userIDStr, imageURL)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Could not save image URL"})
 		return
@@ -126,7 +119,7 @@ func UploadImage(c *gin.Context) {
 }
 
 func Validate(c *gin.Context) {
-	user,_ := c.Get("user")
+	user, _ := c.Get("user")
 	c.JSON(http.StatusOK, gin.H{
 		"message": user,
 	})
