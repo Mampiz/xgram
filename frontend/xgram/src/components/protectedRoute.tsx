@@ -9,7 +9,7 @@ interface ProtectedRouteProps {
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
     const user = JSON.parse(localStorage.getItem("user") || 'null');
 
-    return user ? <>{children}</> : <Navigate to="/login" />;
+    return user ? <>{children}</> : <Navigate to="/" />;
 };
 
 export default ProtectedRoute;

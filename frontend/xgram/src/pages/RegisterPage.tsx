@@ -17,14 +17,70 @@ const RegisterPage: React.FC<LoginPageProps> = ({onLogin}) => {
 	const [FirstName, setFirst] = useState("");
 	const [LastName, setLast] = useState("");
 	const [Username, setUsername] = useState("");
+
+	const [EmailError, setEmailError] = useState(false);
+	const [PasswordError, setPasswordError] = useState(false);
+	const [FirstError, setFirstError] = useState(false);
+	const [LastError, setLastError] = useState(false);
+	const [UserError, setUserError] = useState(false);
+
 	const navigate = useNavigate();
 	const PicturePath = "/path/to/picture";
 	const Location = "casa de irache";
 	const ViewedProfile = 0;
 	const Impressions = 0;
 	const ImageURL = "/path/to/image";
+	
+	const validateInput = () => {
+		
+		if (!Email) {
+			setEmailError(true);
+			console.log("a");
+		} else {
+		    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+			if (!emailRegex.test(Email)) {
+				setEmailError(true);
+				console.log("b");
+			} else {
+				setEmailError(false);
+			}
+		}
+		console.log(EmailError);
+		console.log(Email);
+
+		if (!Password) {
+			setPasswordError(true); 
+		} else {
+			setPasswordError(false);
+		} 
+		
+		if (!FirstName) {
+			setFirstError(true);
+		} else {
+			setFirstError(false);
+		}
+
+		if (!LastName) {
+			setLastError(true);
+		} else {
+			setLastError(false);
+		}
+
+		if (!Username) {
+			setUserError(true);
+		} else {
+			setUserError(false);
+		}
+
+		return EmailError || PasswordError || FirstError || LastError || UserError;
+	}
 
 	const handleRegister = async () => {
+		if(validateInput()) {
+			toast.error("Missing or wrong format information");
+			return;
+		}
+
 		const formDataJson = {
 			Email,
 			Password,
@@ -54,18 +110,17 @@ const RegisterPage: React.FC<LoginPageProps> = ({onLogin}) => {
 				navigate("/register");
 				const errorData = await response.json();
 				toast.error(`Register failed: ${errorData.error}`);
+				return;
 			}
 		} catch (error) {
 			console.error("Error registering:", error);
 			toast.error("Error registering");
+			return;
 		}
 
-		const username = Username;
-		const password = Password;
-
 		const loginData = {
-			username,
-			password
+			username : Username,
+			password : Password
 		};
 
 		try {
@@ -80,7 +135,7 @@ const RegisterPage: React.FC<LoginPageProps> = ({onLogin}) => {
 				const data = await response.json();
 				localStorage.setItem("user", JSON.stringify(data.user));
 				console.log(data.user);
-				navigate("/");
+				navigate("/home");
 				onLogin(data.user);
 			}
 		} catch (error) {
@@ -139,7 +194,7 @@ const RegisterPage: React.FC<LoginPageProps> = ({onLogin}) => {
 									</label>
 									<div className="flex">
 										<div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"></div>
-										<input id="first-name" type="text" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-[#ffcb7d]" placeholder="Santiago" value={FirstName} onChange={e => setFirst(e.target.value)} required />
+										<input id="first-name" type="text" className={`w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 ${FirstError ? 'border-red-500' : ""} outline-none focus:border-[#ffcb7d]`} placeholder={`${FirstError ? 'first name is required' : 'Santiago'}`} value={FirstName} onChange={e => setFirst(e.target.value)} required />
 									</div>
 								</div>
 								<div className="w-1/2 px-3 mb-5">
@@ -148,7 +203,7 @@ const RegisterPage: React.FC<LoginPageProps> = ({onLogin}) => {
 									</label>
 									<div className="flex">
 										<div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"></div>
-										<input id="last-name" type="text" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-[#ffcb7d]" placeholder="Gabriel" value={LastName} onChange={e => setLast(e.target.value)} required />
+										<input id="last-name" type="text" className={`w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 ${LastError ? 'border-red-500' : ""} outline-none focus:border-[#ffcb7d]`} placeholder={`${LastError ? 'last name is required' : 'Gabriel'}`} value={LastName} onChange={e => setLast(e.target.value)} required />
 									</div>
 								</div>
 							</div>
@@ -163,7 +218,7 @@ const RegisterPage: React.FC<LoginPageProps> = ({onLogin}) => {
 												<path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
 											</svg>
 										</div>
-										<input id="first-name" type="text" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-[#ffcb7d]" placeholder="Santi" value={Username} onChange={e => setUsername(e.target.value)} required />
+										<input id="first-name" type="text" className={`w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 ${UserError ? 'border-red-500' : ""} outline-none {/*focus:border-[#ffcb7d]*/}`} placeholder={`${UserError ? 'username is required' : 'santi'}`} value={Username} onChange={e => setUsername(e.target.value)} required />
 									</div>
 								</div>
 							</div>
@@ -176,7 +231,7 @@ const RegisterPage: React.FC<LoginPageProps> = ({onLogin}) => {
 										<div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
 											<Icon path={mdiEmailOutline} size={1} color="gray" />
 										</div>
-										<input id="email" type="email" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-[#ffcb7d]" placeholder="example@example.com" value={Email} onChange={e => setEmail(e.target.value)} required />
+										<input id="email" type="email" className={`w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 ${EmailError ? 'border-red-500' : ""} outline-none focus:border-[#ffcb7d]`} placeholder={`${EmailError ? 'email is required' : 'santi@santi.santi'}`} value={Email} onChange={e => setEmail(e.target.value)} required />
 									</div>
 								</div>
 							</div>
@@ -189,13 +244,12 @@ const RegisterPage: React.FC<LoginPageProps> = ({onLogin}) => {
 										<div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
 											<Icon path={mdiLockOutline} size={1} color="gray" />
 										</div>
-										<input id="password" type="password" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-[#ffcb7d]" placeholder="************" value={Password} onChange={e => setPassword(e.target.value)} required />
-									</div>
+										<input id="password" type="password" className={`w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 ${PasswordError ? 'border-red-500' : ""} outline-none {/*focus:border-[#ffcb7d]*/}`} placeholder={`${PasswordError ? 'password is required' : '************'}`} value={Password} onChange={e => setPassword(e.target.value)} required />									</div>
 								</div>
 							</div>
 							<div className="flex -mx-3">
 								<div className="w-full px-3 mb-5">
-									<button className="block w-full max-w-xs mx-auto bg-[#ffb066] hover:bg-[#ffcb7d] focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold" onClick={handleRegister}>
+									<button className="block w-full max-w-xs mx-auto bg-[#ffb066] hover:bg-[#ffcb7d] text-white rounded-lg px-3 py-3 font-semibold" onClick={handleRegister}>
 										REGISTER NOW
 									</button>
 								</div>

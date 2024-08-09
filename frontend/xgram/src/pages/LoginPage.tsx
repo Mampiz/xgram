@@ -37,7 +37,7 @@ const LoginPage: React.FC<LoginPageProps> = ({onLogin}) => {
 				localStorage.setItem("user", JSON.stringify(data.user));
 				toast.success("Login successful");
 				console.log(data.user);
-				navigate("/");
+				navigate("/home");
 				onLogin(data.user);
 			} else {
 				const errorData = await response.json();

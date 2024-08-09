@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import Homepage from "./components/users";
 import LoginPage from "./pages/LoginPage";
+import LandingPage from "./pages/LandingPage";
 import RegisterPage from "./pages/RegisterPage";
 import {User} from "./types/usetypes";
 
@@ -27,7 +28,8 @@ function App() {
 	return (
 		<Router>
 			<Routes>
-				<Route path="/" element={<Homepage user={user} />} />
+				<Route path="/home" element={<Homepage user={user} />} />
+				<Route path="/" element={<LandingPage/>} />
 				<Route path="/register" element={<RegisterPage onLogin={handleLogin} />} />
 				<Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
 			</Routes>
