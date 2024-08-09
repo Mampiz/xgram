@@ -4,6 +4,7 @@ import (
 	"errors"
 	"example/yx/db"
 	"fmt"
+	"regexp"
 
 	"golang.org/x/crypto/bcrypt"
 )
@@ -40,6 +41,33 @@ func GetUsernameByID(userID string) (string, error) {
 }
 
 func RegisterUser(user User) error {
+
+	if user.Email == "" {
+		return errors.New("missing user information")
+	} else {
+		const emailRegex = `^[^\s@]+@[^\s@]+\.[^\s@]+$`
+		re := regexp.MustCompile(emailRegex)
+		if !re.MatchString(user.Email) {
+			return errors.New("wrong email format")
+		}
+	}
+
+	if user.Username == "" {
+		return errors.New("missing user information")
+	}
+
+	if user.FirstName == "" {
+		return errors.New("missing user information")
+	}
+
+	if user.LastName == "" {
+		return errors.New("missing user information")
+	}
+
+	if user.Password == "" {
+		return errors.New("missing user information")
+	}
+
 	var exists bool
 	err := db.DB.Get(&exists, `SELECT exists(SELECT 1 FROM users WHERE username=$1 OR email=$2)`, user.Username, user.Email)
 	if err != nil {
