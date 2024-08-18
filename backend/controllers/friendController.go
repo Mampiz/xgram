@@ -59,3 +59,20 @@ func GetAllFriend(c *gin.Context) {
 	c.JSON(http.StatusOK, friends)
 
 }
+
+func GetFriends(c *gin.Context) {
+
+	userid := c.Param("id")
+
+	if _, err := uuid.Parse(userid); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid user ID"})
+		return
+	}
+
+	users, err := models.GetUserFriends(userid)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, users)
+}

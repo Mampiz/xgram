@@ -59,3 +59,29 @@ func AllFriends(userid string) ([]UserFriend, error) {
 	}
 	return friends, nil
 }
+
+func GetUserFriends(userid string) ([]User, error) {
+	var users []User
+	query := `
+  		WITH friendTable AS (
+			SELECT
+				CASE
+					WHEN userid = $1 THEN friendid
+					WHEN friendid = $1 THEN userid
+				END AS friend
+			FROM friends
+			WHERE $1 IN (friendid, userid)
+			GROUP BY friend
+			HAVING COUNT(*) = 2
+		)
+		SELECT users.*
+		FROM users
+		JOIN friendTable ON users.id = friendTable.friend;`
+
+	err := db.DB.Select(&users, query, userid)
+
+	if err != nil {
+		return nil, err
+	}
+	return users, nil
+}
